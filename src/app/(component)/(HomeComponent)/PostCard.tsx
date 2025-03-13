@@ -1,9 +1,9 @@
 "use client";
-
 import { ThumbsUp, MessageCircle, MoreHorizontal, Eye } from "lucide-react";
 import Image from "next/image";
 import { allPost } from "../../contactor";
 import TimeAgo from "react-timeago";
+import {userInfo} from "../../contactor"
 
 export default function PostCard() {
   return (
@@ -63,7 +63,7 @@ export default function PostCard() {
               </div>
               <div className="mt-4 flex items-center space-x-3 border-t pt-3">
                 <Image
-                  src="/logo.jpg"
+                  src={userInfo?.user_photo}
                   alt="Profile Picture"
                   width={38}
                   height={38}
@@ -72,7 +72,7 @@ export default function PostCard() {
                 <input
                   type="text"
                   placeholder="Add a comment..."
-                  className="flex-1 p-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 text-gray-800 p-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>

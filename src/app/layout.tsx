@@ -5,6 +5,7 @@ import LeftSideBar from "./(component)/shered/LeftSideBar";
 import RightSideBar from "./(component)/shered/RightSideBar";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "./(component)/shered/Navbar";
+import Footer from "./(component)/shered/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,16 +37,14 @@ export default function RootLayout({
         <div className=" bg-gray-100 pt-6 ">
           <div className="flex justify-between w-11/12 mx-auto">
           <LeftSideBar></LeftSideBar>
-          <main className="w-full lg:mx-6 lg:w-6/12">
-            <div className="h-screen">
+          <main className="w-full mx-auto lg:mx-6 lg:w-6/12">
+            <div className="min-h-screen">
               {children}
-            </div>
-            <div className="h-screen">
-              sd
             </div>
           </main>
           <RightSideBar></RightSideBar>
           </div>
+          <Footer></Footer>
         </div>
       </body>
     </html>
