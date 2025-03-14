@@ -27,7 +27,7 @@ export default function PostCard() {
                   <div>
                     <p className="font-semibold text-black">{post?.user_name}</p>
                     <p className="text-sm text-gray-500">
-                      {post?.title} ·  <TimeAgo date={new Date(post?.publish_date)} />
+                      {post?.title} ·  {post?.publish_date && <TimeAgo date={post?.publish_date} />}
                     </p>
                   </div>
                 </div>
