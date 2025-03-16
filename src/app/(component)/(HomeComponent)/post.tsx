@@ -1,5 +1,5 @@
 'use client';
-
+import {userInfo} from "../../contactor"
 import { useState } from 'react';
 import { Image as ImageIcon, Video, Filter } from 'lucide-react';
 import Image from 'next/image';
@@ -10,7 +10,7 @@ export default function PostBox() {
   return (
     <div className="bg-white shadow-md rounded-lg p-4 w-full">
       <div className="flex items-center space-x-3">
-        <Image src="/assets/logo.svg" alt="logo" width={38} height={38} className='rounded-full'></Image>
+        <Image src={userInfo?.user_photo} alt="logo" width={38} height={38} className='rounded-full'></Image>
         <input
           type="text"
           placeholder="Share your thoughts..."
