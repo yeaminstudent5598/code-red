@@ -5,7 +5,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
-import { Bell, MessageSquareText } from "lucide-react";
+import { MessageSquareText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 function Navbar() {
