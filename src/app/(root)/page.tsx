@@ -1,5 +1,5 @@
-import PostBox from "./(component)/(HomeComponent)/post";
-import PostCard from "./(component)/(HomeComponent)/PostCard";
+import PostBox from "../(component)/(HomeComponent)/post";
+import PostCard from "../(component)/(HomeComponent)/PostCard";
 
 export default function Home() {
   return (

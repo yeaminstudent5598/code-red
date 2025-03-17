@@ -2,7 +2,7 @@
 import { ThumbsUp, MessageCircle, MoreHorizontal, Eye } from "lucide-react";
 import Image from "next/image";
 import { allPost } from "../../contactor";
-import TimeAgo from "react-timeago";
+// import TimeAgo from "react-timeago";
 import {userInfo} from "../../contactor"
 
 export default function PostCard() {
@@ -27,7 +27,7 @@ export default function PostCard() {
                   <div>
                     <p className="font-semibold text-black">{post?.user_name}</p>
                     <p className="text-sm text-gray-500">
-                      {post?.title} ·  {post?.publish_date && <TimeAgo date={post?.publish_date} />}
+                      {post?.title}
                     </p>
                   </div>
                 </div>

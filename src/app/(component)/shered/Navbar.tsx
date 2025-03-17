@@ -1,11 +1,3 @@
-import {
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-import { MessageSquareText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 function Navbar() {
@@ -19,7 +11,7 @@ function Navbar() {
           <p className="text-black font-bold text-2xl">Code Red</p>
           </Link>
         </div>
-        <div className="text-black flex items-center space-x-5">
+        {/* <div className="text-black flex items-center space-x-5">
           <MessageSquareText></MessageSquareText>
         <SignedOut>
           <SignInButton />
@@ -28,7 +20,7 @@ function Navbar() {
         <SignedIn>
           <UserButton />
         </SignedIn>
-        </div>
+        </div> */}
        </div>
       </header>
     </nav>
