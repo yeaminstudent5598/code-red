@@ -1,13 +1,13 @@
 "use client"
 import Link from "next/link";
 import {sidebarLinks} from "../../contactor"
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import ProfileCard from "../(HomeComponent)/ProfileCard";
 function Leftbar() {
   const pathname = usePathname()
-  const route =  useRouter()
-  console.log(pathname, "pathname....")
-  console.log(route, "route........ok")
+  // const route =  useRouter()
+  // console.log(pathname, "pathname....")
+  // console.log(route, "route........ok")
   return (
     <div className="sticky rounded-lg shadow-sm w-3/12 max-lg:hidden bg-white left-0 top-0 z-20 flex h-screen flex-col justify-between overflow-auto border-r border-r-dark-4 bg-dark-2 pb-5 max-md:hidden;">
       <ProfileCard></ProfileCard>

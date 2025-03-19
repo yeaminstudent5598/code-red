@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import NextAuthSessionProvider from '@/providers/NextAuthSessionProvider';
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import LeftSideBar from "../(component)/shered/LeftSideBar";
@@ -28,9 +29,9 @@ export default function RootLayout({
 }>) {
   return (
      <html lang="en">
+      <NextAuthSessionProvider>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-black`}
-      >
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-black`}>
         <Navbar></Navbar>
         <div className=" bg-gray-100 pt-6 ">
           <div className="flex justify-between w-11/12 mx-auto">
@@ -45,6 +46,7 @@ export default function RootLayout({
           <Footer></Footer>
         </div>
       </body>
+      </NextAuthSessionProvider>
     </html>
   );
 }
