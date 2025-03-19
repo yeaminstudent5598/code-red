@@ -33,7 +33,7 @@ export const userInfo = {
     user_photo: "https://i.ibb.co.com/m0p2vnM/3458-roman.jpg",
     user_banner:"https://i.ibb.co.com/fYnBN7F1/maharazbanner.png", 
     title:"Web Developer at Stackbros",
-    bio: " I'd love to change the world but they won’t give me the source code.", 
+    bio: " I'd love my to change the world but they won’t give me the source code.", 
     total_post:237,
     follower: "2.3k", 
     following: 212,
