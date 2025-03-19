@@ -22,7 +22,15 @@ function Navbar() {
           <UserButton />
         </SignedIn>
         </div> */}
-          <LoginButton />
+       
+      
+      {/* <Profile/> */}
+         <div className="flex items-center gap-6">
+         <LoginButton />
+        
+         <Link href="component/Profile"> <button className="text-amber-400">Profile</button></Link>
+         </div>
+
         </div>
       </header>
     </nav>
