@@ -1,10 +1,13 @@
+
 "use client";
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Github, Linkedin, Mail, Edit2, Check, MapPin } from 'lucide-react';
 
 interface ProfileData {
   name: string;
   username: string;
   bio: string;
+  location: string;
   followers: number;
   following: number;
   skills: string[];
@@ -12,32 +15,28 @@ interface ProfileData {
   linkedinLink: string;
 }
 
-const Profile = () => {
+function Profile() {
   const [isEditing, setIsEditing] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(false); // State for following button
+  const [isFollowing, setIsFollowing] = useState(false);
   const [profileData, setProfileData] = useState<ProfileData>({
     name: "SÉRAPHIN BRICE",
     username: "@seraphinbrice",
     bio: "I create premium paid and free graphic resources 😎",
+    location: "Paris, France",
     followers: 45187,
     following: 2563,
-    skills: ["Graphic Design", "Illustration", "Web Design"],
+    skills: ["Graphic Design", "Illustration", "Web Design", "UI/UX", "Branding"],
     githubLink: "https://github.com/seraphinbrice",
     linkedinLink: "https://linkedin.com/in/seraphinbrice",
   });
 
   const handleEditToggle = () => setIsEditing(!isEditing);
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setProfileData({
       ...profileData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleSave = () => {
-    // Save updated profile data (API call or local state update)
-    setIsEditing(false);
   };
 
   const handleFollowToggle = () => {
@@ -45,107 +44,129 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1A1A2E] to-[#16213E] flex justify-center items-center">
-      <div className="w-[500px] rounded-3xl overflow-hidden bg-gradient-to-b from-[#202040] to-[#3E3E6E] shadow-2xl">
-        
-        {/* Header Section */}
-        <div className="relative h-52 bg-gradient-to-r from-black to-[#3E3E6E]">
-          <h1 className="absolute top-16 left-12 text-4xl font-bold text-white">{profileData.name}</h1>
-          <div className="absolute top-6 right-6">
-            <span className="w-6 h-6 block rounded-full bg-white shadow-md" alt="French flag">
-              🇫🇷
-            </span>
-          </div>
+    <div className="min-h-screen bg-gray-50 flex justify-center items-center p-4">
+      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden">
+        {/* Header Banner */}
+        <div className="h-60 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 relative">
+          <div className="absolute inset-0 bg-black/10"></div>
+          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white"></div>
         </div>
 
-        {/* Profile Image */}
-        <div className="relative -mt-14 flex justify-center">
-          <div className="w-28 h-28 rounded-full border-4 border-[#3E3E6E] flex justify-center items-center text-white text-2xl font-semibold bg-[#1A1A2E]">
-            {profileData.name.charAt(0)} <span className="text-gray-400">{profileData.name.charAt(1)}</span>
+        {/* Profile Content */}
+        <div className="relative px-8 -mt-32">
+          {/* Profile Image */}
+          <div className="relative inline-block">
+            <div className="w-40 h-40 rounded-2xl shadow-lg border-4 border-white bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+              <span className="text-5xl font-bold text-white">{profileData.name.charAt(0)}</span>
+            </div>
           </div>
-        </div>
 
-        {/* Bio Section */}
-        <div className="text-center mt-4">
-          {isEditing ? (
-            <textarea
-              value={profileData.bio}
-              name="bio"
-              onChange={handleChange}
-              className="w-full p-2 mt-2 text-gray-800"
-              maxLength={150} // Limit the bio to 150 characters
-            />
-          ) : (
-            <p className="text-white text-lg font-semibold">{profileData.bio}</p>
-          )}
-          <p className="text-gray-400">{profileData.username}</p>
-
-          <div className="text-gray-300 mt-4">
-            {isEditing ? (
-              <>
-                <input
-                  type="text"
-                  value={profileData.githubLink}
-                  name="githubLink"
-                  onChange={handleChange}
-                  placeholder="GitHub Link"
-                  className="w-full p-2 mt-2 text-gray-800"
-                />
-                <input
-                  type="text"
-                  value={profileData.linkedinLink}
-                  name="linkedinLink"
-                  onChange={handleChange}
-                  placeholder="LinkedIn Link"
-                  className="w-full p-2 mt-2 text-gray-800"
-                />
-              </>
-            ) : (
-              <div>
-                <p>GitHub: <a href={profileData.githubLink} target="_blank" className="text-white">{profileData.githubLink}</a></p>
-                <p>LinkedIn: <a href={profileData.linkedinLink} target="_blank" className="text-white">{profileData.linkedinLink}</a></p>
+          {/* Profile Info */}
+          <div className="mt-6 flex flex-wrap items-start justify-between">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-4">
+                <h1 className="text-3xl font-bold text-gray-900">{profileData.name}</h1>
+                <span className="text-2xl">🇫🇷</span>
               </div>
-            )}
+              <p className="text-gray-600 mt-1">{profileData.username}</p>
+              <div className="flex items-center gap-2 text-gray-600 mt-2">
+                <MapPin size={16} />
+                <span>{profileData.location}</span>
+              </div>
+              
+              {isEditing ? (
+                <textarea
+                  value={profileData.bio}
+                  name="bio"
+                  onChange={handleChange}
+                  className="w-full mt-4 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  rows={3}
+                />
+              ) : (
+                <p className="mt-4 text-gray-700 text-lg">{profileData.bio}</p>
+              )}
+            </div>
+
+            <div className="flex gap-3 mt-4 sm:mt-0">
+              <button
+                onClick={handleEditToggle}
+                className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                title={isEditing ? "Save" : "Edit Profile"}
+              >
+                {isEditing ? <Check className="w-5 h-5 text-gray-600" /> : <Edit2 className="w-5 h-5 text-gray-600" />}
+              </button>
+              <button
+                onClick={handleFollowToggle}
+                className={`px-6 py-2 rounded-full font-medium transition-colors ${
+                  isFollowing
+                    ? 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
+              >
+                {isFollowing ? 'Following' : 'Follow'}
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Action Buttons */}
-        <div className="flex justify-center gap-4 mt-6">
-          <button onClick={handleEditToggle} className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
-            <span className="text-white text-xl">{isEditing ? 'Save' : 'Edit'}</span>
-          </button>
-          <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-            ✉️
-          </button>
-          {!isEditing && (
-            <button onClick={handleFollowToggle} className={`bg-pink-500 text-white font-semibold px-6 py-2 rounded-full ${isFollowing ? 'bg-green-500' : ''}`}>
-              {isFollowing ? 'Following' : 'Follow me'}
-            </button>
-          )}
-        </div>
+          {/* Stats */}
+          <div className="flex gap-6 mt-6 pb-6 border-b">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-gray-900">{profileData.followers.toLocaleString()}</p>
+              <p className="text-gray-600">Followers</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-gray-900">{profileData.following.toLocaleString()}</p>
+              <p className="text-gray-600">Following</p>
+            </div>
+          </div>
 
-        {/* Stats Section */}
-        <div className="flex justify-center mt-6 mb-6 text-gray-400">
-          <p className="mr-4">{profileData.followers} followers</p>
-          <p>{profileData.following} following</p>
-        </div>
+          {/* Skills */}
+          <div className="py-6 border-b">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Skills</h2>
+            <div className="flex flex-wrap gap-2">
+              {profileData.skills.map((skill, index) => (
+                <span
+                  key={index}
+                  className="px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
 
-        {/* Activity History Section */}
-        <div className="mt-8 text-white text-center">
-          <h2 className="text-xl font-semibold mb-4">Activity History</h2>
-          <div className="text-gray-300">
-            <p className="font-semibold">Recent Blog Posts:</p>
-            {/* Loop through user's blog posts */}
-            <ul className="mt-2">
-              <li>Blog Post 1</li>
-              <li>Blog Post 2</li>
-              <li>Blog Post 3</li>
-            </ul>
+          {/* Social Links */}
+          <div className="py-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Connect with me</h2>
+            <div className="flex gap-4">
+              <a
+                href={profileData.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                <Github className="w-5 h-5" />
+                <span>GitHub</span>
+              </a>
+              <a
+                href={profileData.linkedinLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                <Linkedin className="w-5 h-5" />
+                <span>LinkedIn</span>
+              </a>
+              <button className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors">
+                <Mail className="w-5 h-5" />
+                <span>Message</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Profile;

@@ -1,6 +1,7 @@
 import LoginButton from "@/components/auth/LoginButton";
 import Image from "next/image";
 import Link from "next/link";
+
 function Navbar() {
   return (
     <nav className="sticky top-0 z-50">
@@ -22,8 +23,15 @@ function Navbar() {
           <UserButton />
         </SignedIn>
         </div> */}
+          <div className="flex items-center space-x-2">
           <LoginButton />
+          <Link href="/Profile" className="text-red hover:text-gray-200">
+              Profile
+            </Link>
+          </div>
         </div>
+       
+ 
       </header>
     </nav>
   );
