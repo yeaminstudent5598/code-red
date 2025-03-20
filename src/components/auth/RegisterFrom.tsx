@@ -7,14 +7,11 @@ import handleSubmit from "./utils/signUp";
 export default function RegisterFrom() {
     const router = useRouter();
 
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     const formData = new FormData(e.currentTarget);
-    //     const email = formData.get("email") as string;
-    //     const password = formData.get("password") as string;
-    //     console.log(email, password);
-    //     // e.currentTarget.reset();
-    // }
+    const signUp = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const user = handleSubmit(e);
+        console.log('user', user);
+    }
 
     return (
         <>
@@ -32,7 +29,7 @@ export default function RegisterFrom() {
                         </div>
 
                         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                            <form onSubmit={(e) => handleSubmit(e)} className="space-y-6">
+                            <form onSubmit={signUp} className="space-y-6">
                                 <div>
                                     <label
                                         htmlFor="email"

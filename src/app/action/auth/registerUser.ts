@@ -1,22 +1,19 @@
-import { dbConnect } from "@/lib/dbConnect";
+import { authDBConnect } from "@/lib/authDBConnect";
 
-export default async function registerUser(
-  email: string,
-  password: string,
-  name: string
-) {
-  const usersCollection = await dbConnect("users");
-  const user = await usersCollection.findOne({ email });
+interface User {
+  email: string;
+  password: string;
+  // name: string;
+}
 
-  if (user) {
-    throw new Error("User already exists");
-  }
+export default async function registerUser(payload: User) {
+  const usersCollection = await authDBConnect("userData");
+  // const user = await usersCollection?.findOne({ email });
 
-  const newUser = await usersCollection.insertOne({
-    email,
-    password,
-    name,
-  });
+  // if (user) {
+  //   throw new Error("User already exists");
+  // }
 
-  return newUser;
+  const res = await usersCollection?.insertOne(payload);
+  return res;
 }
