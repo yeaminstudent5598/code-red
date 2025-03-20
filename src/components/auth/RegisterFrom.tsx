@@ -2,18 +2,19 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import register from '@/image/auth/signup.jpg'
+import handleSubmit from "./utils/signUp";
 
 export default function RegisterFrom() {
     const router = useRouter();
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const email = formData.get("email") as string;
-        const password = formData.get("password") as string;
-        console.log(email, password);
-        // e.currentTarget.reset();
-    }
+    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     const formData = new FormData(e.currentTarget);
+    //     const email = formData.get("email") as string;
+    //     const password = formData.get("password") as string;
+    //     console.log(email, password);
+    //     // e.currentTarget.reset();
+    // }
 
     return (
         <>
@@ -31,7 +32,7 @@ export default function RegisterFrom() {
                         </div>
 
                         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                            <form onSubmit={(e) => handleSubmit(e)} className="space-y-6">
                                 <div>
                                     <label
                                         htmlFor="email"
