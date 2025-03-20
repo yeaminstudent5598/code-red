@@ -28,24 +28,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-     <html lang="en">
+    <html lang="en">
       <NextAuthSessionProvider>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-black`}>
-        <Navbar></Navbar>
-        <div className=" bg-gray-100 pt-6 ">
-          <div className="flex justify-between w-11/12 mx-auto">
-          <LeftSideBar></LeftSideBar>
-          <main className="w-full mx-auto lg:mx-6 lg:w-6/12">
-            <div className="min-h-screen">
-              {children}
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-black`}>
+          <Navbar></Navbar>
+          <div className=" bg-gray-100 pt-6 ">
+            <div className="flex justify-between w-11/12 mx-auto">
+              <LeftSideBar></LeftSideBar>
+              <main className="w-full mx-auto lg:mx-6 lg:w-6/12">
+                <div className="min-h-screen">
+                  {children}
+                </div>
+              </main>
+              <RightSideBar></RightSideBar>
             </div>
-          </main>
-          <RightSideBar></RightSideBar>
+            <Footer></Footer>
           </div>
-          <Footer></Footer>
-        </div>
-      </body>
+        </body>
       </NextAuthSessionProvider>
     </html>
   );
