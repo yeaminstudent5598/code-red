@@ -10,7 +10,7 @@ export default function RegisterFrom() {
     const signUp = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const result = handleSubmit(e);
+        const result = await handleSubmit(e);
         if (!result) {
             console.error("Failed to handle submit");
             return;
@@ -19,17 +19,17 @@ export default function RegisterFrom() {
         const res = await fetch("/api/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ email, password })
         });
 
-        console.log(res);
+        const massage = await res.json();
+        alert(massage.message);
 
-        if (res.ok) {
+        if (res.status === 200) {
             console.log("Registration successful");
             // e.currentTarget.reset();
         } else {
             console.log(res);
-            console.error("Registration failed");
         }
     }
 

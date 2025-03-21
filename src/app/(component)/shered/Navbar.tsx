@@ -1,4 +1,5 @@
 import LoginButton from "@/components/auth/LoginButton";
+import RegisterButton from "@/components/auth/RegisterButton";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,25 +14,16 @@ function Navbar() {
               <p className="text-black font-bold text-2xl">Code Red</p>
             </Link>
           </div>
-          {/* <div className="text-black flex items-center space-x-5">
-          <MessageSquareText></MessageSquareText>
-        <SignedOut>
-          <SignInButton />
-          <SignUpButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-        </div> */}
           <div className="flex items-center space-x-2">
-          <LoginButton />
-          <Link href="/Profile" className="text-red hover:text-gray-200">
+            <RegisterButton />
+            <LoginButton />
+            <Link href="/Profile" className="text-red hover:text-blue-400 text-black">
               Profile
             </Link>
           </div>
         </div>
-       
- 
+
+
       </header>
     </nav>
   );
