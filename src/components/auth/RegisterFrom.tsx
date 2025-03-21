@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import register from '@/image/auth/signup.jpg'
 import handleSubmit from "./utils/signUp";
-// import registerUser from "@/app/action/auth/registerUser";
 
 export default function RegisterFrom() {
     const router = useRouter();
@@ -11,16 +10,6 @@ export default function RegisterFrom() {
     const signUp = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // console.log('user', user);
-        // const formData = new FormData(e.currentTarget);
-        // const email = formData.get("email");
-        // const password = formData.get("password");
-        // console.log({ email, password });
-        // registerUser({ email: email as string, password: password as string });
-        // e.preventDefault();
-        // const formData = new FormData(e.currentTarget);
-        // const email = formData.get("email") as string;
-        // const password = formData.get("password") as string;
         const result = handleSubmit(e);
         if (!result) {
             console.error("Failed to handle submit");
@@ -41,7 +30,6 @@ export default function RegisterFrom() {
         } else {
             console.log(res);
             console.error("Registration failed");
-            // alert("Registration failed. Please try again.");
         }
     }
 

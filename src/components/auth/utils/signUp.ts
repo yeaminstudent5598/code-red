@@ -1,7 +1,4 @@
-export default function handleSubmit(
-  e: React.FormEvent<HTMLFormElement>
-) {
-
+export default function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
   const formData = new FormData(e.currentTarget);
   const email = formData.get("email");
   const password = formData.get("password");
@@ -60,31 +57,5 @@ export default function handleSubmit(
   // If validation passes, proceed with API call or other logic
   console.log("Validation passed:", { email, password });
 
-  // Example API call (replace with your actual endpoint)
-  //   try {
-  //     const response = await fetch("/api/register", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ email, password }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Registration failed.");
-  //     }
-
-  //     const data = await response.json();
-  //     console.log("Registration successful:", data);
-  //     e.currentTarget.reset(); // Reset form on success
-  //   } catch (error) {
-  //     console.error("Error during registration:", error);
-  //     alert("Something went wrong. Please try again.");
-  //   }
-
-  // Reset form on success
-
-//   await registerUser({ email, password });
-//   console.log("Registration successful:", response);
-
-  //   e.currentTarget.reset();
   return { email, password };
 }
