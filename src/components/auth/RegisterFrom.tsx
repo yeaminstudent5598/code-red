@@ -3,14 +3,46 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import register from '@/image/auth/signup.jpg'
 import handleSubmit from "./utils/signUp";
+// import registerUser from "@/app/action/auth/registerUser";
 
 export default function RegisterFrom() {
     const router = useRouter();
 
     const signUp = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const user = handleSubmit(e);
-        console.log('user', user);
+
+        // console.log('user', user);
+        // const formData = new FormData(e.currentTarget);
+        // const email = formData.get("email");
+        // const password = formData.get("password");
+        // console.log({ email, password });
+        // registerUser({ email: email as string, password: password as string });
+        // e.preventDefault();
+        // const formData = new FormData(e.currentTarget);
+        // const email = formData.get("email") as string;
+        // const password = formData.get("password") as string;
+        const result = handleSubmit(e);
+        if (!result) {
+            console.error("Failed to handle submit");
+            return;
+        }
+        const { email, password } = result;
+        const res = await fetch("/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+
+        console.log(res);
+
+        if (res.ok) {
+            console.log("Registration successful");
+            // e.currentTarget.reset();
+        } else {
+            console.log(res);
+            console.error("Registration failed");
+            // alert("Registration failed. Please try again.");
+        }
     }
 
     return (
