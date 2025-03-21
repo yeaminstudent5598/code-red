@@ -1,4 +1,8 @@
-export default function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+// import authDBConnect from "@/lib/authDBConnect";
+
+export default async function handleSubmit(
+  e: React.FormEvent<HTMLFormElement>
+) {
   const formData = new FormData(e.currentTarget);
   const email = formData.get("email");
   const password = formData.get("password");

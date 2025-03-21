@@ -1,3 +1,4 @@
+import authDBConnect from "@/lib/authDBConnect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -7,30 +8,44 @@ export const authOptions = {
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "email" },
-        username: { label: "Username", type: "text", placeholder: "username" },
-        password: {
-          label: "Password",
-          type: "password",
-          placeholder: "password",
-        },
+        password: { label: "Password", type: "password", placeholder: "password" },
       },
-      async authorize(credentials, req) {
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
-        console.log("ca", credentials, "req.body", req.body);
-        if (user) {
-          return user;
-        } else {
-          return null;
+      async authorize(credentials) {
+        const { email, password } = credentials;
+        try {
+          const collection = await authDBConnect("userData");
+          const user = await collection.findOne({ email });
+          const isPasswordValid = password == user.password;
+          if (isPasswordValid) {
+            return user;
+          } else {
+            return null;
+          }
+        } catch (error) {
+          console.log(`DB Error ${error}`);
         }
+
       },
     }),
-  ]
+  ],
+  callbacks: {
+    async session({ session, token }) {
+      if (token) {
+        session.user.email = token.email;
+        session.user.role = token.role;
+      }
+      return session
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.email = user.email;
+        token.role = user.role;
+      }
+      return token
+    }
+  }
 }
 
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
-
-// NextAuth(req: NextRequest, res: RouteHandlerContext, options: AuthOptions)
-// NextAuth(req: NextApiRequest, res: NextApiResponse, options: AuthOptions)
-// NextAuth(options: AuthOptions)
