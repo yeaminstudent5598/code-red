@@ -2,12 +2,20 @@ import authDBConnect from "@/lib/authDBConnect";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  console.log("POST /api/register - antor");
   const { email, password } = await req.json();
 
   try {
-    const collection = await authDBConnect("userData"); // Your collection name
-    await collection.insertOne({ email, password }); // Hash password in production!
+    const collection = await authDBConnect("userData");
+    const emailUsed = await collection.findOne({ email });
+
+    if (emailUsed?.email === email) {
+      return NextResponse.json(
+        { message: "Email already in use" }, 
+        { status: 400 } 
+      );
+    }
+
+    await collection.insertOne({ email, password, role: "user" });
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.log(`DB Error ${error}`);
