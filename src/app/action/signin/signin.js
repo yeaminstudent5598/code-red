@@ -7,13 +7,10 @@ export const SignInInfo = async (userInfo) => {
     
     const userCollection = await dbConnect(collectionObj.userCollection);
     const user = await userCollection.findOne({ email });
-    console.log("click ha aha ah korcho------------------------>")
-    if (!user) return null; // Return null if no user is found
-console.log("click korcho------------------------>")
+    if (!user) return null; 
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    console.log(isPasswordValid, "aschi?")
 
-    if (!isPasswordValid) return null; // Return null if password is incorrect
+    if (!isPasswordValid) return null; 
 
-    return user; // Return user if authentication is successful
+    return user; 
 };

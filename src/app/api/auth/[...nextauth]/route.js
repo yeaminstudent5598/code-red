@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { SignInInfo } from "../../../action/signin/signin";
 import GoogleProvider from "next-auth/providers/google";
+import { signIn } from "next-auth/react";
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -13,10 +14,8 @@ export const authOptions = {
       async authorize(credentials) {
         const user = await SignInInfo(credentials)
         if(user){
-          console.log("vaiya ami", user)
           return user
         }else{
-          console.log("vaiya ami na")
           return null
         }
 
@@ -30,22 +29,16 @@ export const authOptions = {
 
   pages: {
     signIn: '/signin',
-  }
+  },
   // callbacks: {
-  //   async redirect({ baseUrl }) {
-  //     return baseUrl
-  //   },
-  //   async session({ session, token }) {
-  //     if (token) {
-  //       session.user.email = token.email;
-  //     }
-  //     return session
-  //   },
-  //   async jwt({ token, user }) {
-  //     if (user) {
-  //       token.email = user.email;
-  //     }
-  //     return token
+  //   async signIn({user, account, profile, email, credentials}){
+  //     console.log(account, user, credentials, email, profile, "hellow Dost")
+  //   if(account){
+  //     const {providerAccountId, providers} = account
+  //     const {email, name} = user
+
+  //   }
+
   //   }
   // }
 }
