@@ -10,13 +10,16 @@ export async function POST(req: Request) {
 
     if (emailUsed?.email === email) {
       return NextResponse.json(
-        { message: "Email already in use" }, 
-        { status: 400 } 
+        { message: "Email already in use" },
+        { status: 400 }
       );
     }
 
     await collection.insertOne({ email, password, role: "user" });
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json(
+      { message: "Sign up Success, Login fist  !!" },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(`DB Error ${error}`);
     return NextResponse.json({ error: "Database error" }, { status: 500 });
