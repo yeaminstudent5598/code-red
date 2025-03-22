@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { SignInInfo } from "../../../action/signin/signin";
-// import {SignInInfo} from "@/app/action/signin/signin"
+import GoogleProvider from "next-auth/providers/google";
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -22,6 +22,10 @@ export const authOptions = {
 
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    })
   ],
 
   pages: {

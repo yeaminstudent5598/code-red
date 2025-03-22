@@ -20,7 +20,10 @@ const Navbar = () => {
           </div>
           <div className="flex items-center space-x-2">
             {session ? (
+             <>
+              <p className="text-gray-600">{session?.user?.name}</p>
               <SignOut />
+             </>
             ) : (
               <>
                 <Link href="/register" className="btn">Sign Up</Link>
