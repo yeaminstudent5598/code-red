@@ -28,35 +28,35 @@ export default async function handleSubmit(
   }
 
   // Password validation with separate checks
-  if (password.length < 6) {
-    console.error("Password too short.");
-    alert("Password must be at least 6 characters long.");
-    return;
-  }
+  // if (password.length < 6) {
+  //   console.error("Password too short.");
+  //   alert("Password must be at least 6 characters long.");
+  //   return;
+  // }
 
-  if (!/[0-9]/.test(password)) {
-    console.error("Password missing a number.");
-    alert("Password must contain at least one number (0-9).");
-    return;
-  }
+  // if (!/[0-9]/.test(password)) {
+  //   console.error("Password missing a number.");
+  //   alert("Password must contain at least one number (0-9).");
+  //   return;
+  // }
 
-  if (!/[A-Z]/.test(password)) {
-    console.error("Password missing an uppercase letter.");
-    alert("Password must contain at least one uppercase letter (A-Z).");
-    return;
-  }
+  // if (!/[A-Z]/.test(password)) {
+  //   console.error("Password missing an uppercase letter.");
+  //   alert("Password must contain at least one uppercase letter (A-Z).");
+  //   return;
+  // }
 
-  if (!/[a-z]/.test(password)) {
-    console.error("Password missing a lowercase letter.");
-    alert("Password must contain at least one lowercase letter (a-z).");
-    return;
-  }
+  // if (!/[a-z]/.test(password)) {
+  //   console.error("Password missing a lowercase letter.");
+  //   alert("Password must contain at least one lowercase letter (a-z).");
+  //   return;
+  // }
 
-  if (!/[!@#$%^&*]/.test(password)) {
-    console.error("Password missing a special character.");
-    alert("Password must contain at least one special character (!@#$%^&*).");
-    return;
-  }
+  // if (!/[!@#$%^&*]/.test(password)) {
+  //   console.error("Password missing a special character.");
+  //   alert("Password must contain at least one special character (!@#$%^&*).");
+  //   return;
+  // }
 
   // If validation passes, proceed with API call or other logic
   console.log("Validation passed:", { email, password });

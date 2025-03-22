@@ -24,6 +24,7 @@ export default function RegisterFrom() {
 
         const massage = await res.json();
         alert(massage.message);
+        // router.push("/");
 
         if (res.status === 200) {
             console.log("Registration successful");
@@ -37,18 +38,18 @@ export default function RegisterFrom() {
         <>
             <div className="flex justify-center mt-16">
                 <div style={{ minWidth: "30%" }}>
-                    <div className="flex min-h-full shadow-lg flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
+                    <div className="flex min-h-full shadow-lg flex-1 flex-col justify-center p-6 lg:px-8 bg-white">
 
                         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                             <div className="flex justify-center">
-                                <Image src={register} height={150} width={150} alt="fig" />
+                                <Image src={register} height={120} width={120} alt="fig" />
                             </div>
                             <h2 className="mt-1 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                                 Sign in to your account
                             </h2>
                         </div>
 
-                        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                        <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
                             <form onSubmit={signUp} className="space-y-6">
                                 <div>
                                     <label
