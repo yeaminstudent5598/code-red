@@ -11,7 +11,7 @@ export default function LayoutWrapper({
     children: React.ReactNode;
 }>) {
     const pathname = usePathname();
-    const noSidebarRoutes = ['/register', '/login'];
+    const noSidebarRoutes = ['/register', '/signin'];
     const showSidebars = !noSidebarRoutes.includes(pathname);
 
     return (

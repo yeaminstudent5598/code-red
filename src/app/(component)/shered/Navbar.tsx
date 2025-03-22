@@ -1,13 +1,12 @@
-import LoginButton from "@/components/auth/LoginButton";
-import RegisterButton from "@/components/auth/RegisterButton";
-import UserServerInfo from "@/components/auth/UserServerInfo";
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
+import SignOut from "./SignOut";
+import { useSession } from "next-auth/react";
 
-async function Navbar() {
-
-  const user = await UserServerInfo();
-  // console.log("User Info Email : ", user?.email);
+const Navbar = () => {
+  const { data: session } = useSession();
 
   return (
     <nav className="sticky top-0 z-50">
@@ -20,20 +19,19 @@ async function Navbar() {
             </Link>
           </div>
           <div className="flex items-center space-x-2">
-            {user ?
-              <Link href="/Profile" className="bg-primary-green py-1 px-4 rounded-2xl text-lg font-semibold cursor-pointer hover:ring-2 ring-primary-blue duration-200">
-                Profile
-              </Link>
-              :
+            {session ? (
+              <SignOut />
+            ) : (
               <>
-                <RegisterButton />
-                <LoginButton />
-              </>}
+                <Link href="/register" className="btn">Sign Up</Link>
+                <Link href="/signin" className="btn">Sign In</Link>
+              </>
+            )}
           </div>
         </div>
       </header>
     </nav>
   );
-}
+};
 
 export default Navbar;

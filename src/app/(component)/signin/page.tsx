@@ -1,15 +1,15 @@
 // import RegisterFrom from "@/components/auth/RegisterFrom";
-import RegistrationForm from "./components/RegistrationForm";
 
-// import SignInForm from "../signin/components/SignInForm";
+import SignInForm from "./components/SignInForm";
 
-function page() {
+// import SignInForm from "./components/SignInForm";
+
+function SignInPage() {
   return (
     <div className="py-6">
       <div className="w-full max-w-md mx-auto p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800">
         <h1 className="text-2xl font-bold text-center">Login</h1>
-        <RegistrationForm></RegistrationForm>
-        {/* <SignInForm></SignInForm> */}
+        <SignInForm></SignInForm>
         <div className="flex items-center pt-4 space-x-1">
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
           <p className="px-3 text-sm dark:text-gray-600">
@@ -57,9 +57,8 @@ function page() {
           </a>
         </p>
       </div>
-      {/* <RegisterFrom /> */}
     </div>
   );
 }
 
-export default page;
+export default SignInPage;

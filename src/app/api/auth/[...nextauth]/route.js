@@ -1,7 +1,7 @@
-import authDBConnect from "@/lib/authDBConnect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import { SignInInfo } from "../../../action/signin/signin";
+// import {SignInInfo} from "@/app/action/signin/signin"
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -11,42 +11,39 @@ export const authOptions = {
         password: { label: "Password", type: "password", placeholder: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = credentials;
-        try {
-          const collection = await authDBConnect("userData");
-          const user = await collection.findOne({ email });
-          const isPasswordValid = password == user.password;
-          if (isPasswordValid) {
-            return user;
-          } else {
-            return null;
-          }
-        } catch (error) {
-          console.log(`DB Error ${error}`);
+        const user = await SignInInfo(credentials)
+        if(user){
+          console.log("vaiya ami", user)
+          return user
+        }else{
+          console.log("vaiya ami na")
+          return null
         }
 
       },
     }),
   ],
-  callbacks: {
-    async redirect({ url, baseUrl }) {
-      return baseUrl
-    },
-    async session({ session, token }) {
-      if (token) {
-        session.user.email = token.email;
-        session.user.role = token.role;
-      }
-      return session
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.email = user.email;
-        token.role = user.role;
-      }
-      return token
-    }
+
+  pages: {
+    signIn: '/signin',
   }
+  // callbacks: {
+  //   async redirect({ baseUrl }) {
+  //     return baseUrl
+  //   },
+  //   async session({ session, token }) {
+  //     if (token) {
+  //       session.user.email = token.email;
+  //     }
+  //     return session
+  //   },
+  //   async jwt({ token, user }) {
+  //     if (user) {
+  //       token.email = user.email;
+  //     }
+  //     return token
+  //   }
+  // }
 }
 
 const handler = NextAuth(authOptions);

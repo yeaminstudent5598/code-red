@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 // import { SignUpUser } from "@/app/action/register/signup";
 // import { SignUpUser } from "@/app/action/register/signup";
 import {SignUpUser} from "../../../../action/register/signup"
@@ -65,7 +66,7 @@ function RegistrationForm() {
 
   const [errormassage, setErrorMassage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const route = useRouter()
   const handleSubmit = async(e) => {
     e.preventDefault();
     const password = e.target.password.value;
@@ -97,6 +98,7 @@ function RegistrationForm() {
     const data = await SignUpUser(userInfo);
     if (data?.success) {
       toast.success(`${data?.message}`);
+      route.push("/signin")
     } else {
       toast.error(`${data?.message}`);
     }
@@ -165,14 +167,14 @@ function RegistrationForm() {
                   </p>
                 </div>
               </div>
-              <div className="border-2 overflow-hidden border-gray-300 border-dashed px-2 rounded-lg w-40 flex items-center justify-center p-2 ml-2">
+              <div className="border-2 h-36 overflow-hidden border-gray-300 border-dashed px-2 rounded-lg w-40 flex items-center justify-center p-2 ml-2">
                 {previewSrc && (
                   <Image
                     src={previewSrc}
                     alt="Preview"
                     width={500}
                     height={500}
-                    className="mx-auto max-w-30"
+                    className="mx-auto "
                   />
                 )}
               </div>
