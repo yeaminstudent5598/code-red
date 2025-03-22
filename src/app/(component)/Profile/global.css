@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@plugin "daisyui";
 
 :root {
   --background: #ffffff;
@@ -18,11 +17,6 @@
     --background: #ffff;
     --foreground: #ededed;
   }
-}
-
-@theme {
-  --color-primary-blue: #2b7fff;
-  --color-primary-green: #00c951;
 }
 
 body {
