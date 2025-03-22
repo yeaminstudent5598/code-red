@@ -1,9 +1,14 @@
 import LoginButton from "@/components/auth/LoginButton";
 import RegisterButton from "@/components/auth/RegisterButton";
+import UserServerInfo from "@/components/auth/UserServerInfo";
 import Image from "next/image";
 import Link from "next/link";
 
-function Navbar() {
+async function Navbar() {
+
+  const user = await UserServerInfo();
+  // console.log("User Info Email : ", user?.email);
+
   return (
     <nav className="sticky top-0 z-50">
       <header className="shadow-sm w-full bg-white">
@@ -15,15 +20,17 @@ function Navbar() {
             </Link>
           </div>
           <div className="flex items-center space-x-2">
-            <RegisterButton />
-            <LoginButton />
-            <Link href="/Profile" className="text-red hover:text-blue-400 text-black">
-              Profile
-            </Link>
+            {user ?
+              <Link href="/Profile" className="bg-primary-green py-1 px-4 rounded-2xl text-lg font-semibold cursor-pointer hover:ring-2 ring-primary-blue duration-200">
+                Profile
+              </Link>
+              :
+              <>
+                <RegisterButton />
+                <LoginButton />
+              </>}
           </div>
         </div>
-
-
       </header>
     </nav>
   );

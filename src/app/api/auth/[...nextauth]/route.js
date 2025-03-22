@@ -29,6 +29,9 @@ export const authOptions = {
     }),
   ],
   callbacks: {
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    },
     async session({ session, token }) {
       if (token) {
         session.user.email = token.email;
