@@ -35,6 +35,7 @@ function SignInForm() {
               type="email"
               name="email"
               id="email"
+              required
               placeholder="Email"
               className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-50 text-gray-800"
             />
@@ -57,6 +58,7 @@ function SignInForm() {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
+                required
                 placeholder="Password"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-50 text-gray-800"
               />
