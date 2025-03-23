@@ -115,6 +115,7 @@ function RegistrationForm() {
             <input
               type="text"
               name="name"
+              required
               id="name"
               placeholder="Name"
               className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-50 text-gray-800"
@@ -128,6 +129,7 @@ function RegistrationForm() {
               type="text"
               name="username"
               id="username"
+              required
               placeholder="Username"
               className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-50 text-gray-800"
             />
@@ -141,6 +143,7 @@ function RegistrationForm() {
                 <input
                   ref={fileInputRef}
                   type="file"
+                  required
                   className="absolute inset-0 w-full h-full opacity-0 z-50"
                   accept="image/png, image/jpeg, image/gif"
                 />
@@ -189,6 +192,7 @@ function RegistrationForm() {
               type="email"
               name="email"
               id="email"
+              required
               placeholder="Email"
               className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-50 text-gray-800"
             />
@@ -211,6 +215,7 @@ function RegistrationForm() {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
+                required
                 placeholder="Password"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 bg-gray-50 text-gray-800"
               />
