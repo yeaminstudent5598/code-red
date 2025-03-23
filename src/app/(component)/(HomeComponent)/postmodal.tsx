@@ -1,9 +1,10 @@
 "use client";
 import axios from "axios";
-import { Image as ImageIcon, Video, Filter } from "lucide-react";
+import { Image as ImageIcon, Video, Filter, CircleX } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function ModalofPost() {
   const { data } = useSession();
@@ -11,17 +12,15 @@ export default function ModalofPost() {
 
   useEffect(() => {
     const fetchUserInfo = async () => {
-      try {
-        if (!data?.user?.email) return;
+      if (!data?.user?.email){
+        return
+      }else{
         const response = await axios.get(
           `http://localhost:3000/api/user/${data.user.email}`
         );
         setUserInfo(response.data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
       }
     };
-
     fetchUserInfo();
   }, [data?.user?.email]);
 
@@ -81,6 +80,26 @@ export default function ModalofPost() {
     };
   }, []);
 
+  const handlePostSubmit = async(e)=>{
+    e.preventDefault()
+    console.log("hellowejwj------------>")
+    const decription = e.target.decription.value
+    const blogInfo = {
+      email: userInfo?.email,
+      decription,
+      image: previewSrc
+    }
+    console.log(blogInfo)
+    const {data} = await axios.post("http://localhost:3000/api/blog", blogInfo)
+    if(data?.acknowledged){
+      toast.success("post publish successfully")
+      document.getElementById("my_modal_4")?.close();
+    }else{
+      toast.error("Error")
+    }
+  }
+
+
   return (
     <div className="postSection w-full p-2 rounded-xl">
       <div onClick={() => document.getElementById("my_modal_4")?.showModal()}>
@@ -125,7 +144,7 @@ export default function ModalofPost() {
       {/* Modal */}
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box bg-white w-11/12 max-w-3xl">
-          <form className="px-3 mx-auto py-4">
+          <form onSubmit={handlePostSubmit} className="px-3 mx-auto py-4">
             <div className="space-y-12">
               <div className="border-b border-gray-900/10 ">
                 <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -148,21 +167,22 @@ export default function ModalofPost() {
                       htmlFor="about"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      About
+                      Description
                     </label>
                     <div className="mt-2">
                       <textarea
-                        id="about"
-                        name="about"
-                        rows="3"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        id="decription"
+                        name="decription"
+                        rows={3}
+                        placeholder="Description"
+                        className="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       ></textarea>
                     </div>
                   </div>
 
                   {previewSrc ? (
                     <>
-                    <div className="col-span-full"> 
+                    <div className="col-span-full relative"> 
                     {previewSrc && (
                           <Image
                             src={previewSrc}
@@ -172,12 +192,13 @@ export default function ModalofPost() {
                             className="mx-auto w-full rounded-md"
                           />
                         )}
+                    <CircleX onClick={()=>setPreviewSrc("")} className="absolute top-0 right-0 text-red-600 shadow-2xl"/>
                     </div>
                     </>
                   ) : (
                     <>
                       <div className="col-span-full">
-                    <div className="mt-4 flex justify-between">
+                    <div className="flex justify-between">
                       <div
                         ref={dropzoneRef}
                         className="relative w-full h-60 border-2 border-gray-300 border-dashed rounded-lg p-6"
@@ -185,7 +206,6 @@ export default function ModalofPost() {
                         <input
                           ref={fileInputRef}
                           type="file"
-                          required
                           className="absolute cursor-pointer top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inset-0 w-full h-full opacity-0 z-50"
                           accept="image/png, image/jpeg, image/gif"
                         />
@@ -222,11 +242,14 @@ export default function ModalofPost() {
                 </div>
               </div>
             </div>
+            <div className="flex justify-between items-center">
             <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Post</button>
+              <button type="submit" className="btn">Cencel</button>
             </form>
           </div>
+          <button type="submit" className="btn">Post</button>
+            </div>
           </form>
           
         </div>
