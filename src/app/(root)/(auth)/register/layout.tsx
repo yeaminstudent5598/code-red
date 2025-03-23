@@ -5,7 +5,6 @@ export default function layout({
 }) {
     return (
         <section>
-            {/* <p className="text-black">Hi</p> */}
             {children}
         </section>
     )
