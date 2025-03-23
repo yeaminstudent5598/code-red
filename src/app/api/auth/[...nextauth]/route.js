@@ -1,7 +1,8 @@
-import authDBConnect from "@/lib/authDBConnect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import { SignInInfo } from "../../../action/signin/signin";
+import GoogleProvider from "next-auth/providers/google";
+// import { signIn } from "next-auth/react";
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -11,42 +12,35 @@ export const authOptions = {
         password: { label: "Password", type: "password", placeholder: "password" },
       },
       async authorize(credentials) {
-        const { email, password } = credentials;
-        try {
-          const collection = await authDBConnect("userData");
-          const user = await collection.findOne({ email });
-          const isPasswordValid = password == user.password;
-          if (isPasswordValid) {
-            return user;
-          } else {
-            return null;
-          }
-        } catch (error) {
-          console.log(`DB Error ${error}`);
+        const user = await SignInInfo(credentials)
+        if(user){
+          return user
+        }else{
+          return null
         }
 
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    })
   ],
-  callbacks: {
-    async redirect({ url, baseUrl }) {
-      return baseUrl
-    },
-    async session({ session, token }) {
-      if (token) {
-        session.user.email = token.email;
-        session.user.role = token.role;
-      }
-      return session
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.email = user.email;
-        token.role = user.role;
-      }
-      return token
-    }
-  }
+
+  pages: {
+    signIn: '/signin',
+  },
+  // callbacks: {
+  //   async signIn({user, account, profile, email, credentials}){
+  //     console.log(account, user, credentials, email, profile, "hellow Dost")
+  //   if(account){
+  //     const {providerAccountId, providers} = account
+  //     const {email, name} = user
+
+  //   }
+
+  //   }
+  // }
 }
 
 const handler = NextAuth(authOptions);
