@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { Image as ImageIcon, Video, Filter, CircleX } from "lucide-react";
+import { Image as ImageIcon, Video, CircleX } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
@@ -12,9 +12,9 @@ export default function ModalofPost() {
 
   useEffect(() => {
     const fetchUserInfo = async () => {
-      if (!data?.user?.email){
-        return
-      }else{
+      if (!data?.user?.email) {
+        return;
+      } else {
         const response = await axios.get(
           `http://localhost:3000/api/user/${data.user.email}`
         );
@@ -26,7 +26,8 @@ export default function ModalofPost() {
 
   const dropzoneRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
+  const [previewSrc, setPreviewSrc] = useState("");
+  const [preview, setPreview] = useState("");
 
   useEffect(() => {
     const dropzone = dropzoneRef.current;
@@ -48,14 +49,23 @@ export default function ModalofPost() {
       e.preventDefault();
       dropzone.classList.remove("border-indigo-600");
       if (e.dataTransfer.files.length > 0) {
-        displayPreview(e.dataTransfer.files[0]);
+        handleFileSelect(e.dataTransfer.files[0]);
       }
     };
 
     const handleFileChange = (e: Event) => {
       const target = e.target as HTMLInputElement;
       if (target.files && target.files.length > 0) {
-        displayPreview(target.files[0]);
+        handleFileSelect(target.files[0]);
+      }
+    };
+
+    const handleFileSelect = (file: File) => {
+      if (file && file.type.startsWith("image/")) {
+        displayPreview(file);
+        uploadImage(file);
+      } else {
+        toast.error("Please upload a valid image file (PNG, JPG, or GIF).");
       }
     };
 
@@ -63,7 +73,7 @@ export default function ModalofPost() {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        setPreviewSrc(reader.result as string);
+        setPreview(reader.result as string);
       };
     };
 
@@ -80,36 +90,80 @@ export default function ModalofPost() {
     };
   }, []);
 
-  const handlePostSubmit = async(e)=>{
-    e.preventDefault()
-    console.log("hellowejwj------------>")
-    const decription = e.target.decription.value
-    const blogInfo = {
-      email: userInfo?.email,
-      decription,
-      image: previewSrc
-    }
-    console.log(blogInfo)
-    const {data} = await axios.post("http://localhost:3000/api/blog", blogInfo)
-    if(data?.acknowledged){
-      toast.success("post publish successfully")
-      document.getElementById("my_modal_4")?.close();
-    }else{
-      toast.error("Error")
-    }
-  }
+  const uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
 
+    try {
+      const response = await axios.post(
+        "https://api.imgbb.com/1/upload?key=57138238c8443d7277af5c2feeb31321",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      const uploadedUrl = response.data.data.url;
+
+      const shortenedUrl = await shortenUrl(uploadedUrl);
+
+      setPreviewSrc(shortenedUrl);
+      return shortenedUrl;
+    } catch (error) {
+      console.error("Image upload failed", error);
+      toast.error("Image upload failed.");
+      return null;
+    }
+  };
+
+  const shortenUrl = async (longUrl: string) => {
+    try {
+      const response = await axios.post(
+        "https://api-ssl.bitly.com/v4/shorten",
+        { long_url: longUrl },
+        {
+          headers: {
+            Authorization: `Bearer YOUR_BITLY_ACCESS_TOKEN`, 
+          },
+        }
+      );
+      return response.data.link;
+    } catch (error) {
+      console.error("URL shortening failed", error);
+      return longUrl;
+    }
+  };
+
+  const handlePostSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const description = (e.target as HTMLFormElement).description.value;
+
+    const blogInfo = {
+      name: userInfo?.name,
+      user_photo: userInfo?.user_photo,
+      email: userInfo?.email,
+      description,
+      image: previewSrc,
+    };
+
+    try {
+      const { data } = await axios.post("http://localhost:3000/api/blog", blogInfo);
+      if (data?.acknowledged) {
+        toast.success("Post published successfully");
+        document.getElementById("my_modal_4")?.close();
+      } else {
+        toast.error("Error while publishing the post.");
+      }
+    } catch (error) {
+      toast.error("Error while publishing the post.");
+    }
+  };
 
   return (
     <div className="postSection w-full p-2 rounded-xl">
       <div onClick={() => document.getElementById("my_modal_4")?.showModal()}>
         <form className="flex items-center space-x-3">
           <Image
-            src={
-              userInfo?.user_photo
-                ? `${userInfo?.user_photo}`
-                : "https://placehold.co/10x10"
-            }
+            src={userInfo?.user_photo || "https://placehold.co/10x10"}
             alt="User"
             width={38}
             height={38}
@@ -150,11 +204,7 @@ export default function ModalofPost() {
                 <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div className="col-span-full flex items-center gap-x-4">
                     <Image
-                      src={
-                        userInfo?.user_photo
-                          ? `${userInfo?.user_photo}`
-                          : "https://placehold.co/10x10"
-                      }
+                      src={userInfo?.user_photo || "https://placehold.co/10x10"}
                       alt="User"
                       width={38}
                       height={38}
@@ -171,8 +221,8 @@ export default function ModalofPost() {
                     </label>
                     <div className="mt-2">
                       <textarea
-                        id="decription"
-                        name="decription"
+                        id="description"
+                        name="description"
                         rows={3}
                         placeholder="Description"
                         className="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -180,78 +230,72 @@ export default function ModalofPost() {
                     </div>
                   </div>
 
-                  {previewSrc ? (
-                    <>
-                    <div className="col-span-full relative"> 
-                    {previewSrc && (
-                          <Image
-                            src={previewSrc}
-                            alt="Preview"
-                            width={500}
-                            height={500}
-                            className="mx-auto w-full rounded-md"
-                          />
-                        )}
-                    <CircleX onClick={()=>setPreviewSrc("")} className="absolute top-0 right-0 text-red-600 shadow-2xl"/>
+                  {previewSrc && (
+                    <div className="col-span-full relative">
+                      <Image
+                        src={previewSrc}
+                        alt="Preview"
+                        width={500}
+                        height={500}
+                        className="mx-auto w-full rounded-md"
+                      />
+                      <CircleX
+                        onClick={() => setPreviewSrc(null)}
+                        className="absolute top-0 right-0 text-red-600 shadow-2xl cursor-pointer"
+                      />
                     </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="col-span-full">
-                    <div className="flex justify-between">
-                      <div
-                        ref={dropzoneRef}
-                        className="relative w-full h-60 border-2 border-gray-300 border-dashed rounded-lg p-6"
-                      >
-                        <input
-                          ref={fileInputRef}
-                          type="file"
-                          className="absolute cursor-pointer top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inset-0 w-full h-full opacity-0 z-50"
-                          accept="image/png, image/jpeg, image/gif"
-                        />
-                        <div className="text-center mt-9">
-                          <Image
-                            className="mx-auto h-12 w-12"
-                            src="https://www.svgrepo.com/show/357902/image-upload.svg"
-                            alt="Upload icon"
-                            width={500}
-                            height={500}
-                          />
+                  )}
 
-                          <h3 className="mt-2 text-sm font-medium text-gray-900">
-                            <label
-                              htmlFor="file-upload"
-                              className="relative cursor-pointer"
-                            >
-                              <span className="cursor-pointer">Update photo</span>
-                              <span className="text-indigo-600">
-                                {" "}
-                                or browse
-                              </span>
-                            </label>
-                          </h3>
-                          <p className="mt-1 text-xs text-gray-500">
-                            PNG, JPG, GIF up to 10MB
-                          </p>
+                  {!previewSrc && (
+                    <div className="col-span-full">
+                      <div className="flex justify-between">
+                        <div
+                          ref={dropzoneRef}
+                          className="relative w-full h-60 border-2 border-gray-300 border-dashed rounded-lg p-6"
+                        >
+                          <input
+                            ref={fileInputRef}
+                            type="file"
+                            className="absolute cursor-pointer top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inset-0 w-full h-full opacity-0 z-50"
+                            accept="image/png, image/jpeg, image/gif"
+                          />
+                          <div className="text-center mt-9">
+                            <Image
+                              className="mx-auto h-12 w-12"
+                              src="https://www.svgrepo.com/show/357902/image-upload.svg"
+                              alt="Upload icon"
+                              width={500}
+                              height={500}
+                            />
+                            <h3 className="mt-2 text-sm font-medium text-gray-900">
+                              <label
+                                htmlFor="file-upload"
+                                className="relative cursor-pointer"
+                              >
+                                <span className="cursor-pointer">Update photo</span>
+                                <span className="text-indigo-600"> or browse</span>
+                              </label>
+                            </h3>
+                            <p className="mt-1 text-xs text-gray-500">
+                              PNG, JPG, GIF up to 10MB
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                    </>
                   )}
                 </div>
               </div>
             </div>
             <div className="flex justify-between items-center">
-            <div className="modal-action">
-            <form method="dialog">
-              <button type="submit" className="btn">Cencel</button>
-            </form>
-          </div>
-          <button type="submit" className="btn">Post</button>
+              <div className="modal-action">
+                <form method="dialog">
+                  <button type="submit" className="btn">Cancel</button>
+                </form>
+              </div>
+              <button type="submit" className="btn">Post</button>
             </div>
           </form>
-          
         </div>
       </dialog>
     </div>

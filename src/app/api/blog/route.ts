@@ -3,8 +3,6 @@
 import { collectionObj, dbConnect } from "@/lib/dbConnect"
 import { NextResponse } from "next/server"
 
-
-
 export async function GET () {
     const blogCollection = await dbConnect(collectionObj.blogCollection)
     const result = await blogCollection?.find().toArray()
