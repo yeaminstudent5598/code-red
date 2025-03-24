@@ -1,3 +1,6 @@
+"use client"
+
+import { SessionProvider } from "next-auth/react";
 import "./global.css";
 
 export default function DashboardLayout({
@@ -10,7 +13,9 @@ export default function DashboardLayout({
         <body>
           {/* Layout UI */}
           {/* Place children where you want to render a page or nested layout */}
-          <main>{children}</main>
+        <SessionProvider>
+         <main>{children}</main>
+      </SessionProvider>
         </body>
       </html>
     )

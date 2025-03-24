@@ -1,7 +1,11 @@
 
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Github, Linkedin, Mail, Edit2, Check, MapPin } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import axios from 'axios';
+import Image from 'next/image';
+
 
 interface ProfileData {
   name: string;
@@ -16,8 +20,31 @@ interface ProfileData {
 }
 
 function Profile() {
+    const { data: session } = useSession();
   const [isEditing, setIsEditing] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
+    const [userInfo, setUserInfo] = useState([]);
+
+ useEffect(() => {
+    const fetchUserInfo = async () => {
+      if (!session?.user?.email) {
+        return;
+      } else {
+        const response = await axios.get(
+          `http://localhost:3000/api/user/${session.user.email}`
+        );
+        setUserInfo(response.data);
+      }
+      // console.log(response.data)
+    };
+    fetchUserInfo();
+  }, [session?.user?.email]);
+
+  console.log(userInfo)
+
+
+
+
   const [profileData, setProfileData] = useState<ProfileData>({
     name: "SÉRAPHIN BRICE",
     username: "@seraphinbrice",
@@ -56,8 +83,13 @@ function Profile() {
         <div className="relative px-8 -mt-32">
           {/* Profile Image */}
           <div className="relative inline-block">
-            <div className="w-40 h-40 rounded-2xl shadow-lg border-4 border-white bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-              <span className="text-5xl font-bold text-white">{profileData.name.charAt(0)}</span>
+            <div className="w-40 h-40 rounded-2xl shadow-lg border-4 border-white flex items-center justify-center">
+            <Image
+      src={userInfo?.user_photo}
+      width={500}
+      height={500}
+      alt="Picture of the author"
+    />
             </div>
           </div>
 
@@ -65,10 +97,10 @@ function Profile() {
           <div className="mt-6 flex flex-wrap items-start justify-between">
             <div className="max-w-2xl">
               <div className="flex items-center gap-4">
-                <h1 className="text-3xl font-bold text-gray-900">{profileData.name}</h1>
-                <span className="text-2xl">🇫🇷</span>
+                <h1 className="text-3xl font-bold text-gray-900">{session?.user?.name}</h1>
+                
               </div>
-              <p className="text-gray-600 mt-1">{profileData.username}</p>
+              <p className="text-gray-600 mt-1">{userInfo?.username}</p>
               <div className="flex items-center gap-2 text-gray-600 mt-2">
                 <MapPin size={16} />
                 <span>{profileData.location}</span>
