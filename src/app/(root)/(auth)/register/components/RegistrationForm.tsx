@@ -7,10 +7,12 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import axios from "axios";
 function RegistrationForm() {
   const dropzoneRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
+  const [previewSrc, setPreviewSrc] = useState("");
+  const [preview, setPreview] = useState("");
 
   useEffect(() => {
     const dropzone = dropzoneRef.current;
@@ -32,14 +34,23 @@ function RegistrationForm() {
       e.preventDefault();
       dropzone.classList.remove("border-indigo-600");
       if (e.dataTransfer.files.length > 0) {
-        displayPreview(e.dataTransfer.files[0]);
+        handleFileSelect(e.dataTransfer.files[0]);
       }
     };
 
     const handleFileChange = (e: Event) => {
       const target = e.target as HTMLInputElement;
       if (target.files && target.files.length > 0) {
-        displayPreview(target.files[0]);
+        handleFileSelect(target.files[0]);
+      }
+    };
+
+    const handleFileSelect = (file: File) => {
+      if (file && file.type.startsWith("image/")) {
+        displayPreview(file);
+        uploadImage(file);
+      } else {
+        toast.error("Please upload a valid image file (PNG, JPG, or GIF).");
       }
     };
 
@@ -47,7 +58,7 @@ function RegistrationForm() {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        setPreviewSrc(reader.result as string);
+        setPreview(reader.result as string);
       };
     };
 
@@ -63,6 +74,49 @@ function RegistrationForm() {
       fileInput.removeEventListener("change", handleFileChange);
     };
   }, []);
+
+  const uploadImage = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    try {
+      const response = await axios.post(
+        "https://api.imgbb.com/1/upload?key=57138238c8443d7277af5c2feeb31321",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      const uploadedUrl = response.data.data.url;
+
+      const shortenedUrl = await shortenUrl(uploadedUrl);
+
+      setPreviewSrc(shortenedUrl);
+      return shortenedUrl;
+    } catch (error) {
+      console.error("Image upload failed", error);
+      toast.error("Image upload failed.");
+      return null;
+    }
+  };
+
+  const shortenUrl = async (longUrl: string) => {
+    try {
+      const response = await axios.post(
+        "https://api-ssl.bitly.com/v4/shorten",
+        { long_url: longUrl },
+        {
+          headers: {
+            Authorization: `Bearer YOUR_BITLY_ACCESS_TOKEN`, 
+          },
+        }
+      );
+      return response.data.link;
+    } catch (error) {
+      console.error("URL shortening failed", error);
+      return longUrl;
+    }
+  };
 
   const [errormassage, setErrorMassage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
