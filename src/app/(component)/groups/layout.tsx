@@ -9,9 +9,11 @@ export default function DashboardLayout({
     return (
       <html lang="en">
         <SessionProvider >
-        <body className="bg-white h-screen">
+        <body className="bg-gray-100 text-gray-900">
           <Navbar />
-          <main className="pt-5 w-11/12 mx-auto ">{children}</main>
+          <div className="bg-gray-100">
+          <main className="pt-5  text-gray-900 w-11/12 mx-auto ">{children}</main>
+          </div>
         </body>
            </SessionProvider>
       </html>
