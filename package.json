@@ -16,7 +16,7 @@
     "bcryptjs": "^3.0.2",
     "imgbb": "^1.0.48",
     "lucide-react": "^0.479.0",
-    "mongodb": "^6.14.2",
+    "mongodb": "^6.15.0",
     "next": "15.2.2",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",

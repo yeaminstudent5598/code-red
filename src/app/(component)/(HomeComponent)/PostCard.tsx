@@ -1,15 +1,18 @@
-"use client";
+// "use client";
 import { ThumbsUp, MessageCircle, MoreHorizontal, Eye } from "lucide-react";
 import Image from "next/image";
-import { allPost } from "../../contactor";
+// import { allPost } from "../../contactor";
 // import TimeAgo from "react-timeago";
-import {userInfo} from "../../contactor"
+import { userInfo } from "../../contactor"
+import getAllBlogs from '../../action/post/getAllBlogs'
 
-export default function PostCard() {
+export default async function PostCard() {
+  const allPost = await getAllBlogs()
+  // console.log("Posts in PostCard:", allPost);
   return (
     <div>
       {allPost?.map((post, index) => {
-        return(
+        return (
           (
             <div
               key={index}
@@ -34,18 +37,18 @@ export default function PostCard() {
                 <MoreHorizontal className="text-gray-500 cursor-pointer" />
               </div>
               <p className="mt-3 text-gray-800">
-               {post?.description}
+                {post?.description}
               </p>
               {
                 post?.image && <div className="mt-4">
-                <Image
-                  src={post?.image}
-                  alt="Post Image"
-                  height={500}
-                  width={300}
-                  className="w-full rounded-lg"
-                />
-              </div>
+                  <Image
+                    src={post?.image}
+                    alt="Post Image"
+                    height={500}
+                    width={300}
+                    className="w-full rounded-lg"
+                  />
+                </div>
               }
               <div className="flex justify-between items-center mt-4 text-gray-600 text-sm">
                 <div className="flex items-center space-x-2">
