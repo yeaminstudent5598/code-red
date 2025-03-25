@@ -20,13 +20,16 @@ export default async function PostCard() {
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <Image
+                 <div className="flex space-x-4 text-gray-700 font-semibold">
+                 <Image
                     src={post?.user_photo || "https://placehold.co/10x10"}
                     alt="User Photo"
                     width={38}
-                    height={38}
-                    className="rounded-full"
+                      height={38}
+                      className="rounded-full overflow-hidden w-10 h-10 object-contain ring-2 ring-offset-1 bg-gray-500 ring-violet-300 ring-offset-gray-100"
                   />
+                  <p>{post?.name}</p>
+                 </div>
                   <div>
                     <p className="font-semibold text-black">{post?.user_name}</p>
                     <p className="text-sm text-gray-500">
