@@ -10,6 +10,8 @@ export default function ModalofPost() {
   const { data } = useSession();
   const [userInfo, setUserInfo] = useState([]);
 
+  // useEffect
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       if (!data?.user?.email) {
