@@ -85,7 +85,7 @@ function Profile() {
           <div className="relative inline-block">
             <div className="w-40 h-40 rounded-2xl shadow-lg border-4 border-white flex items-center justify-center">
             <Image
-      src={userInfo?.user_photo}
+      src={userInfo?.user_photo || '/path/to/default-image.jpg'}
       width={500}
       height={500}
       alt="Picture of the author"
@@ -97,7 +97,7 @@ function Profile() {
           <div className="mt-6 flex flex-wrap items-start justify-between">
             <div className="max-w-2xl">
               <div className="flex items-center gap-4">
-                <h1 className="text-3xl font-bold text-gray-900">{session?.user?.name}</h1>
+                <h1 className="text-3xl font-bold text-gray-900">{userInfo?.name}</h1>
                 
               </div>
               <p className="text-gray-600 mt-1">{userInfo?.username}</p>
