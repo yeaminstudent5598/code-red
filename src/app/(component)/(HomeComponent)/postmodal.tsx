@@ -27,7 +27,7 @@ export default function ModalofPost() {
   const dropzoneRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [previewSrc, setPreviewSrc] = useState("");
-  const [preview, setPreview] = useState("");
+  const [setPreview] = useState("");
 
   useEffect(() => {
     const dropzone = dropzoneRef.current;
@@ -223,6 +223,7 @@ export default function ModalofPost() {
                       <textarea
                         id="description"
                         name="description"
+                        required
                         rows={3}
                         placeholder="Description"
                         className="block px-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -287,13 +288,11 @@ export default function ModalofPost() {
                 </div>
               </div>
             </div>
-            <div className="flex justify-between items-center">
-              <div className="modal-action">
-                <form method="dialog">
-                  <button type="submit" className="btn">Cancel</button>
-                </form>
-              </div>
-              <button type="submit" className="btn">Post</button>
+            <div className="modal-action">
+              <button type="button" className="btn" onClick={() => document.getElementById("my_modal_4")?.close()}>
+                Cancel
+              </button>
+              <button type="submit" className="btn bg-blue-500 text-white">Post</button>
             </div>
           </form>
         </div>

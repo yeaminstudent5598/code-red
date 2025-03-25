@@ -38,9 +38,9 @@ export default function RootLayout({
             {children}
             </main>
           </LayoutWrapper>
+      <ToastContainer />
         </body>
       </NextAuthSessionProvider>
-      <ToastContainer />
     </html>
   );
 }
