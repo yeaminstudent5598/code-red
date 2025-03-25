@@ -20,7 +20,6 @@ const Navbar = () => {
           </div>
           <div className="flex items-center space-x-2">
             <Link href="profile" className="btn bg-blue-500">Profile</Link>
-            <Link href="groups" className="btn bg-blue-500">Groups</Link>
             {session ? (
              <>
               <p className="text-gray-600">{session?.user?.name}</p>
