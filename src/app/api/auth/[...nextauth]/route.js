@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 import { SignInInfo } from "../../../action/signin/signin";
 import GoogleProvider from "next-auth/providers/google";
