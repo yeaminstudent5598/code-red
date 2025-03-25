@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import NextAuthSessionProvider from '@/providers/NextAuthSessionProvider';
+import NextAuthSessionProvider from "@/providers/NextAuthSessionProvider";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "../(component)/shered/Navbar";
@@ -25,22 +25,21 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode,
+  children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
-      <NextAuthSessionProvider>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-black`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-black`}
+      >
+        <NextAuthSessionProvider>
           <Navbar />
           <LayoutWrapper>
-            <main>
-            {children}
-            </main>
+            <main>{children}</main>
           </LayoutWrapper>
-        </body>
-      </NextAuthSessionProvider>
-      <ToastContainer />
+          <ToastContainer />
+        </NextAuthSessionProvider>
+      </body>
     </html>
   );
 }
