@@ -9,6 +9,9 @@ import DrawerContentPage from "./HomeCenter/AllDrawerThings/DrawerContentPage";
 import { Button } from "./ui/button";
 import { InteractiveHoverButton } from "./magicui/interactive-hover-button";
 import { Bell, MessagesSquare } from "lucide-react";
+// import { SparklesText } from "@/registry/magicui/sparkles-text";
+import { SparklesText } from "@/components/magicui/sparkles-text"
+
 
 
 
@@ -35,13 +38,16 @@ export default function Navbar() {
                         {navLinks}
                     </ul>
                 </div>
-                <Link href={'/'} className="btn btn-ghost text-xl hidden lg:flex">DevQuestions</Link>
+                <Link href={'/'} className=" hidden lg:flex">
+                    <SparklesText text="DevQuestions" className="text-2xl" />
+
+                </Link>
                 <ul className="menu menu-horizontal px-1 hidden lg:flex">
                     {navLinks}
                 </ul>
             </div>
             <div className="navbar-center ">
-                <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto text-black" />
+                <input type="text" placeholder="Search" className="input input-bordered w-32 md:w-sm lg:w-96 text-black" />
             </div>
             <div className="navbar-end">
                 {status === "authenticated" ? <>
@@ -74,7 +80,7 @@ export default function Navbar() {
                                             <span className="badge">New</span>
                                         </a>
                                     </li>
-                                    <li><a>Dashboard</a></li>
+                                    <li><a>Settings</a></li>
                                     <li><a>Message</a></li>
                                     <li><a>Notification</a></li>
 
@@ -100,11 +106,6 @@ export default function Navbar() {
                                 {/* <InteractiveHoverButton className="hidden md:flex">Add Question</InteractiveHoverButton> */}
                             </DrawerTrigger>
                             <DrawerTrigger asChild>
-                                {/* <Button className="cursor-pointer md:hidden flex items-center bg-black border border-red-500 text-white md:px-5 py-2 rounded-lg font-medium transition duration-300">
-                                    <span>Add Question</span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                    </svg>
-                                </Button> */}
                                 <InteractiveHoverButton className="hidden md:flex">Add Question</InteractiveHoverButton>
                             </DrawerTrigger>
                         </div>
@@ -113,26 +114,14 @@ export default function Navbar() {
                     </Drawer>
                 </> : <>
                     <div className="flex gap-1.5">
-                    <Link href={'/login'}>
-  <button className="relative inline-block px-6 py-3 bg-black text-white font-bold text-sm md:text-md uppercase rounded-md border border-transparent overflow-hidden group">
-    <span className="absolute inset-0 bg-gradient-to-r from-gray-600 via-gray-800 to-black opacity-70 group-hover:opacity-100 transition-all duration-300"></span>
-    <span className="relative z-10 group-hover:text-gray-500 text-lg tracking-wider font-mono transition-all duration-300">
-      Log In
-    </span>
-    <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-pink-500 scale-x-0 group-hover:scale-x-100 transition-all duration-300"></span>
-  </button>
-</Link>
-
-<Link href={'/register'}>
-  <button className="relative inline-block px-6 py-3 bg-black text-white font-bold text-sm md:text-md uppercase rounded-md border border-transparent overflow-hidden group">
-    <span className="absolute inset-0 bg-gradient-to-r from-gray-600 via-gray-800 to-black opacity-70 group-hover:opacity-100 transition-all duration-300"></span>
-    <span className="relative z-10 group-hover:text-gray-500 text-lg tracking-wider font-mono transition-all duration-300">
-      Register
-    </span>
-    <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-pink-500 scale-x-0 group-hover:scale-x-100 transition-all duration-300"></span>
-  </button>
-</Link>
-
+                        <Link href={'/login'}>
+                            <button
+                                className="btn btn-sm md:btn-md bg-red-400">Log In</button>
+                        </Link>
+                        {/* <Link href={'/register'}>
+                            <button
+                                className="btn btn-sm md:btn-md bg-red-400">Register</button>
+                        </Link> */}
                     </div>
                 </>}
             </div>
