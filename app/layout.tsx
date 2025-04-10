@@ -5,7 +5,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import SessionWrapper from "@/Providers/SessionWrapper";
 import LayoutWrapper from "@/components/LayoutWrapper/LayoutWrapper";
-
+import ChatProvider from "@/messages/Context/ChatProvider";
 
 const poppins = Poppins({
   weight: ["400", "600", "700"],
@@ -23,18 +23,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme='light'>
-      <body
-        className={`${poppins.className} antialiased `}>
-        <SessionWrapper>
-          <Toaster />
-          {/* <Navbar /> */}
-          <div className=" bg-slate-950 text-white bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]">
-            <LayoutWrapper>
-              {children}
-            </LayoutWrapper>
-          </div>
-        </SessionWrapper>
+    <html lang="en" data-theme="light">
+      <body className={`${poppins.className} antialiased `}>
+        <ChatProvider>
+          <SessionWrapper>
+            <Toaster />
+            {/* <Navbar /> */}
+            <div className=" bg-slate-950 text-white bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]">
+              <LayoutWrapper>{children}</LayoutWrapper>
+            </div>
+          </SessionWrapper>
+        </ChatProvider>
       </body>
     </html>
   );
