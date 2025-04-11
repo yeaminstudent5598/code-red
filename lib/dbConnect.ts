@@ -1,5 +1,3 @@
-
-
 import { MongoClient, ServerApiVersion } from "mongodb"
 
 export const collectionNameObj = {
@@ -8,9 +6,11 @@ export const collectionNameObj = {
     questionCollection: "questions",
     communityCollection: "community",
     groupMemberCollection: "groupMember",
+    blogBookmarksCollection: "blog_bookmarks",
+    questionBookmarksCollection: "question_bookmarks"
 }
 
-export default function dbConnect(collectionName: string) {//+
+export default function dbConnect(collectionName: string) {
     const uri = process.env.MONGODB_URI;
     if (!uri) {
         throw new Error("MONGODB_URI is not defined in the environment variables.");
