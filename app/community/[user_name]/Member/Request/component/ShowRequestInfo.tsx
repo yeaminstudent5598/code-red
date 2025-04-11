@@ -7,7 +7,7 @@ function ShowRequestInfo({ data, refetch }) {
     // if (!req?.accessibility === "Owner" || !req?.accessibility === "Admin") {
     //   return;
     // }
-    await axios.patch(`http://localhost:3000/api/communities/${req?.group_user_name}`, {
+    await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/communities/${req?.group_user_name}`, {
       member: req?.name
     });
     refetch()
@@ -16,7 +16,7 @@ function ShowRequestInfo({ data, refetch }) {
     // if (!req?.accessibility === "Owner" || !req?.accessibility === "Admin") {
     //   return;
     // }
-    await axios.delete(`http://localhost:3000/api/communities/${req?.group_user_name}`, {
+    await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/communities/${req?.group_user_name}`, {
       headers:  {member:req?.name} ,
   });
     refetch()

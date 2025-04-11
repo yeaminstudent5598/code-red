@@ -2,6 +2,7 @@
 import HomeCenter from "@/components/HomeCenter/HomeCenter";
 import HomeLeft from "@/components/HomeLeft/HomeLeft";
 import HomeRight from "@/components/HomeRight/HomeRight";
+// import ModalClient from "@/components/ModalClient/ModalClient";
 
 
 // interface CardData {
@@ -21,6 +22,8 @@ export default function Home() {
 
       {/* Center Section (Scrollable) */}
       <HomeCenter />
+
+     
 
       {/* Right Section (Hidden on small & medium screens) */}
       <HomeRight />
