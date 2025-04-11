@@ -5,8 +5,6 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import SessionWrapper from "@/Providers/SessionWrapper";
 import LayoutWrapper from "@/components/LayoutWrapper/LayoutWrapper";
-import FloatingButton from "./code-editor/components/FloatingButton";
-import QueryProvider from "@/Providers/QueryProvider";
 
 
 const poppins = Poppins({
@@ -38,7 +36,6 @@ export default function RootLayout({
               <FloatingButton />
             </LayoutWrapper>
           </div>
-          </QueryProvider>
         </SessionWrapper>
       </body>
     </html>

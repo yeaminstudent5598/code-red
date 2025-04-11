@@ -1,9 +1,11 @@
+import Link from 'next/link'
 import React from 'react'
+
 
 export default function HomeLeft() {
   return (
     <div className="hidden md:block sticky top-0 h-screen ">
-        Groups
+        <Link href="/community"></Link>
       </div>
   )
 }
