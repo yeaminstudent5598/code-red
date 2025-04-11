@@ -11,6 +11,7 @@ import LikeSection from "./LikeSection/LikeSection";
 import DisLikeSection from "./DisLikeSection/DisLikeSection";
 import CommentSection from "./CommentSection/CommentSection";
 import DeleteSection from "./DeleteSection/DeleteSection";
+import BookmarkButton from "@/app/profile/components/BookmarkButton";
 
 interface QuestionBoxFooterProps {
     card: { _id: string; content: string; tags: string[]; name: string; postedAt: string; likes: string[]; dislikes: string[] };
@@ -30,6 +31,9 @@ export default function QuestionBoxFooter({ card }: QuestionBoxFooterProps) {
 
                 {/* Comments */}
                 <CommentSection card={card} />
+
+                  {/* Bookmark Button */}
+                  <BookmarkButton postId={card._id} type="question" />
             </div>
 
             <div>
