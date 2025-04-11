@@ -2,7 +2,7 @@
 import { useGroupData } from '../[user_name]/Member/component/index';
 
 export function AllCommunity() {
-    const { data: groups, isLoading, isError } = useGroupData("http://localhost:3000/api/community");
+    const { data: groups, isLoading, isError } = useGroupData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/community`);
   return {groups, isLoading, isError}
 }
 

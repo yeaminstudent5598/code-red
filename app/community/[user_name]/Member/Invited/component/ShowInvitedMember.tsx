@@ -4,7 +4,7 @@ import Image from "next/image"
 function ShowInvitedMember({data, refetch}) {
     const invited = data[0]
     const handleDelete = async(invite)=>{
-        await axios.delete(`http://localhost:3000/api/communities/${invite?.group_user_name}`, {
+        await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/communities/${invite?.group_user_name}`, {
             headers:  {member:invite?.name} ,
         });
           refetch()

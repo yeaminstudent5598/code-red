@@ -7,7 +7,7 @@ function useGroupUserInfo(path:string, email:string) {
     useEffect(()=>{
        const GroupUser =async()=>{
            if(email){
-               const {data} = await axios(`http://localhost:3000/api/community/${email}`, {
+               const {data} = await axios(`${process.env.NEXT_PUBLIC_BASE_URL}/api/community/${email}`, {
                 headers: { path },
             })
                setUserInfo(data)
