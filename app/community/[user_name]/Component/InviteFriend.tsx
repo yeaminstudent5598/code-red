@@ -5,51 +5,51 @@ import { useEffect, useState } from "react";
 
 
 interface Friend {
-    name: string;
-    email?: string;
-  }
+  name: string;
+  email?: string;
+}
 
 function InviteFriend() {
-    const [searchTerm, setSearchTerm] = useState<string>(""); 
-    const [friendName, setFriendName] = useState<string[]>([]);
-      const [description, setDescription] = useState<string>("");
-      const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
-      const [friendData, setFriendData] = useState<Friend[]>([]);
-      const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [friendName, setFriendName] = useState<string[]>([]);
+  const [description, setDescription] = useState<string>("");
+  const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
+  const [friendData, setFriendData] = useState<Friend[]>([]);
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
-      const {data} = useSession()
-    const handleSelect = (name: string) => {
-        if (selectedFriends.includes(name)) {
-          const updated = selectedFriends.filter((n) => n !== name);
-          setSelectedFriends(updated);
-          setFriendName(updated);
-        } else {
-          const updated = [...selectedFriends, name];
-          setSelectedFriends(updated);
-          setFriendName(updated);
-        }
-      };
-    
-      const filteredFriends = friendData.filter((friend) =>
-        friend.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    
-      useEffect(() => {
-        const fetchFriendData = async () => {
-          try {
-            const response = await axios.get<Friend[]>(
-              `http://localhost:3000/api/friend/${data?.user?.email}`
-            );
-            setFriendData(response.data);
-          } catch (error) {
-            console.error("Error fetching friend data:", error);
-          }
-        };
-        if (data?.user?.email) {
-          fetchFriendData();
-        }
-      }, [data?.user?.email]);
-    
+  const { data } = useSession()
+  const handleSelect = (name: string) => {
+    if (selectedFriends.includes(name)) {
+      const updated = selectedFriends.filter((n) => n !== name);
+      setSelectedFriends(updated);
+      setFriendName(updated);
+    } else {
+      const updated = [...selectedFriends, name];
+      setSelectedFriends(updated);
+      setFriendName(updated);
+    }
+  };
+
+  const filteredFriends = friendData.filter((friend) =>
+    friend.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  useEffect(() => {
+    const fetchFriendData = async () => {
+      try {
+        const response = await axios.get<Friend[]>(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/friend/${data?.user?.email}`
+        );
+        setFriendData(response.data);
+      } catch (error) {
+        console.error("Error fetching friend data:", error);
+      }
+    };
+    if (data?.user?.email) {
+      fetchFriendData();
+    }
+  }, [data?.user?.email]);
+
   return (
     <dialog id="invite_friend" className="modal modal-middle">
       <form
@@ -66,7 +66,7 @@ function InviteFriend() {
           </button>
           <h2 className="text-xl font-semibold mb-4">Invite Friend</h2>
           <div className="space-y-4">
-           
+
 
             <div className="relative">
               <label className="block text-gray-600">Invite friends</label>
@@ -92,11 +92,10 @@ function InviteFriend() {
                     filteredFriends.map((friend, index) => (
                       <div
                         key={index}
-                        className={`p-2 hover:bg-gray-100 cursor-pointer flex items-center justify-between ${
-                          selectedFriends.includes(friend.name)
+                        className={`p-2 hover:bg-gray-100 cursor-pointer flex items-center justify-between ${selectedFriends.includes(friend.name)
                             ? "bg-gray-200"
                             : ""
-                        }`}
+                          }`}
                         onClick={() => handleSelect(friend.name)}
                       >
                         <span>{friend.name}</span>

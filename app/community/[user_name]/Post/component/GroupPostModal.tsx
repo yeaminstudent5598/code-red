@@ -117,7 +117,7 @@ function GroupPostModal() {
   };
 
   const userInfo = axios.get(
-    `http://localhost:3000/api/users/${data?.user?.email}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${data?.user?.email}`
   );
   console.log(userInfo, "use info");
 

@@ -2,11 +2,12 @@ import React from 'react'
 import PostInputSec from './PostInput/PostInputSec'
 import BlogBoxTable from './BlogBox/BlogBoxTable/BlogBoxTable';
 import axios from 'axios';
+import ModalClient from '../ModalClient/ModalClient';
 
 
 const fetchPostedData = async () => {
   try {
-    const { data: postedData } = await axios.get("http://localhost:3000/api/blog");
+    const { data: postedData } = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blog`);
     return postedData
   } catch (error) {
     console.error("Error fetching posts:", error);
@@ -22,6 +23,9 @@ export default async function HomeCenter() {
         {/* Post Input Box */}
         <PostInputSec />
         {/* <PostInputSecDialog /> */}
+
+        {/* Modal For Eid Greetings */}
+        <ModalClient />
         {/* Post Card */}
         <BlogBoxTable cardData={cardData} />
 

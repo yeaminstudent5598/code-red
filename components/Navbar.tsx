@@ -75,7 +75,7 @@ export default function Navbar() {
                                     tabIndex={0}
                                     className="menu menu-sm dropdown-content bg-white text-black rounded-box z-1 mt-3 w-52 p-2 shadow">
                                     <li>
-                                    <Link href={"/profile"} className="justify-between">
+                                        <Link href={"/profile"} className="justify-between">
                                             Profile
                                             <span className="badge">New</span>
                                         </Link>
@@ -114,9 +114,18 @@ export default function Navbar() {
                     </Drawer>
                 </> : <>
                     <div className="flex gap-1.5">
-                        <Link href={'/login'}>
+                        {/* <Link href={'/login'}>
                             <button
                                 className="btn btn-sm md:btn-md bg-red-400">Log In</button>
+                        </Link> */}
+                        <Link href={'/login'}>
+                            <button className="relative inline-block px-6 py-3 bg-black text-white font-bold text-sm md:text-md uppercase rounded-md border border-transparent overflow-hidden group">
+                                <span className="absolute inset-0 bg-gradient-to-r from-gray-600 via-gray-800 to-black opacity-70 group-hover:opacity-100 transition-all duration-300"></span>
+                                <span className="relative z-10 group-hover:text-gray-500 text-lg tracking-wider font-mono transition-all duration-300">
+                                    Log In
+                                </span>
+                                <span className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-pink-500 scale-x-0 group-hover:scale-x-100 transition-all duration-300"></span>
+                            </button>
                         </Link>
                         {/* <Link href={'/register'}>
                             <button

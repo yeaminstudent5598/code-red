@@ -21,7 +21,7 @@ function CreateCammunity() {
   const [selectedFriends, setSelectedFriends] = useState<string[]>([]);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const { data } = useSession();
-  const {refetch} = useGroupData("http://localhost:3000/api/community")
+  const {refetch} = useGroupData(`${process.env.NEXT_PUBLIC_BASE_URL}/api/community`)
   //  Group Photo
   const dropzoneRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -152,7 +152,7 @@ function CreateCammunity() {
     const fetchFriendData = async () => {
       try {
         const response = await axios.get<Friend[]>(
-          `http://localhost:3000/api/friend/${data?.user?.email}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/friend/${data?.user?.email}`
         );
         setFriendData(response.data);
       } catch (error) {
@@ -172,7 +172,7 @@ function CreateCammunity() {
     console.log(baseUsername, "baseUsername");
     if (data?.user?.email === undefined) return alert("Please login first");
     const newCommunity = await axios.post(
-      `http://localhost:3000/api/community/${data?.user?.email}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/community/${data?.user?.email}`,
       {
         group_name: groupName,
         group_picture: previewSrc,
