@@ -6,7 +6,8 @@ export const collectionNameObj = {
     userCollection: "users",
     blogCollection: "blogs",
     questionCollection: "questions",
-
+    communityCollection: "community",
+    groupMemberCollection: "groupMember",
 }
 
 export default function dbConnect(collectionName: string) {//+
