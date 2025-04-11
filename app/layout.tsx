@@ -5,6 +5,8 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import SessionWrapper from "@/Providers/SessionWrapper";
 import LayoutWrapper from "@/components/LayoutWrapper/LayoutWrapper";
+import FloatingButton from "./code-editor/components/FloatingButton";
+import QueryProvider from "@/Providers/QueryProvider";
 
 
 const poppins = Poppins({
@@ -27,13 +29,16 @@ export default function RootLayout({
       <body
         className={`${poppins.className} antialiased `}>
         <SessionWrapper>
+        <QueryProvider>
           <Toaster />
           {/* <Navbar /> */}
           <div className=" bg-slate-950 text-white bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]">
             <LayoutWrapper>
               {children}
+              <FloatingButton />
             </LayoutWrapper>
           </div>
+          </QueryProvider>
         </SessionWrapper>
       </body>
     </html>
