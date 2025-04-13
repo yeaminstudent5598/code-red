@@ -43,7 +43,7 @@ const Signup = () => {
             });
             console.log(data);
 
-            localStorage.setItem("userInfo", JSON.stringify(data));
+            // localStorage.setItem("userInfo", JSON.stringify(data));
             setPicLoading(false);
             alert("Signup Successful");
             router.push("/messages/chats");
