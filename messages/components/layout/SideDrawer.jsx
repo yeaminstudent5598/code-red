@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-// import { FaBell, FaSearch } from "react-icons/fa";
+import { FaBell, FaSearch } from "react-icons/fa";
 import { ChatState } from "../../Context/ChatProvider";
 import axios from "axios";
-// import Skeleton from "../ui/Skeleton";
-// import UserListItem from "../ui/UserListItem";
+import Skeleton from "../ui/Skeleton";
+import UserListItem from "../ui/UserListItem";
 
 const SideDrawer = () => {
   const [search, setSearch] = useState("");
@@ -14,8 +14,6 @@ const SideDrawer = () => {
   const {
     setSelectedChat,
     user,
-    // notification,
-    // setNotification,
     chats,
     setChats,
   } = ChatState();
@@ -75,12 +73,11 @@ const SideDrawer = () => {
               <label
                 htmlFor="my-drawer"
                 className="btn btn-ghost text-black hover:bg-gray-200">
-                {/* <FaSearch /> */}
-                "S"
+                <FaSearch />
                 <span className="hidden md:flex">Search User</span>
               </label>
             </div>
-            <div className="drawer-side">
+            <div className="drawer-side z-50">
               <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
               <div className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                 <div className="flex items-center gap-2 justify-center">
@@ -89,12 +86,10 @@ const SideDrawer = () => {
                 </div>
                 <div>
                   {loading ? (
-                    // <Skeleton />
-                    "Loading..."
+                    <Skeleton />
                   ) : (
                     searchResult?.map((user) => (
-                      // <UserListItem key={user._id} user={user} handleFunction={() => accessChat(user._id)}/>
-                      "UserListItem"
+                      <UserListItem key={user._id} user={user} handleFunction={() => accessChat(user._id)} />
                     ))
                   )}
                 </div>
@@ -102,11 +97,10 @@ const SideDrawer = () => {
             </div>
           </div>
         </div>
-        <h2 className="text-2xl">KathaKoi</h2>
+        <h2 className="text-2xl">Messages</h2>
         <div className="flex items-center gap-2 justify-center">
           <div className="p-1 cursor-pointer">
-            "B"
-            {/* <FaBell /> */}
+            <FaBell />
             {/* <MenuList></MenuList> */}
           </div>
           <div>
