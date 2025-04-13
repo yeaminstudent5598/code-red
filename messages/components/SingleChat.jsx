@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ChatState } from "../Context/ChatProvider";
 import axios from "axios";
 import io from "socket.io-client";
-// import { FaArrowLeft } from "react-icons/fa";
 import { getSender } from "../config/ChatLogics";
 import ScrollableChat from './ScrollableChat';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const ENDPOINT = process.env.NEXT_PUBLIC_CHAT_EXPRESS_SERVER;
 var socket, selectedChatCompare;
@@ -18,6 +18,13 @@ const SingleChat = () => {
     const [typing, setTyping] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
     const { selectedChat, setSelectedChat, user } = ChatState();
+
+    useEffect(() => {
+        const chatContainer = document.getElementById('chat-container');
+        if (chatContainer) {
+          chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+      }, [messages]);
 
     const fetchMessages = async () => {
         if (!selectedChat) return;
@@ -124,14 +131,13 @@ const SingleChat = () => {
     };
 
     return (
-        <div className='h-full w-full'>
+        <div className='w-full relative h-[75vh]'>
             {
                 selectedChat ? (
                     <>
                         <div className='text-[28px] md:text-3xl pb-3 px-2 w-full flex justify-between items-center'>
                             <button className='btn btn-outline btn-sm text-black hover:bg-gray-200 flex md:hidden' onClick={() => setSelectedChat("")}>
-                                {/* <FaArrowLeft /> */}
-                                "ArrowLeft"
+                                <FaArrowLeft />
                             </button>
                             {messages && (
                                 !selectedChat.isGroupChat ? (
@@ -141,20 +147,20 @@ const SingleChat = () => {
                                 ) : (
                                     <div>
                                         {selectedChat.chatName.toUpperCase()}
-                                        {/* {} */}
                                     </div>
                                 ))}
                         </div>
-                        <div className='flex flex-col justify-end p-3 bg-[#E8E8E8] w-full h-full rounded-lg overflow-y-hidden'>
+                        <div id='chat-container' className='p-3 bg-[#E8E8E8] w-full rounded-lg max-h-full overflow-y-auto'>
                             {
-                                loading ? ("Loading...") : (<div>
+                                loading ? ("Loading...") : (<>
                                     <ScrollableChat messages={messages} />
-                                    {/* "ScrollableChat" */}
-                                </div>)
+                                    {/* <div ref={messagesEndRef} /> */}
+                                </>
+                                )
                             }
-                            <div className='mt-3' onKeyDown={sendMessage}>
+                            <div className='mt-4' onKeyDown={sendMessage}>
                                 {isTyping ? <div>Typing...</div> : (<></>)}
-                                <input type="text" onChange={typingHandler} value={newMessage} placeholder='Enter a message...' className='bg-[#E0E0E0] input ' />
+                                <input type="text" onChange={typingHandler} value={newMessage} placeholder='Enter a message...' className='bg-[#E0E0E0] input w-full border'/>
                             </div>
                         </div>
                     </>
