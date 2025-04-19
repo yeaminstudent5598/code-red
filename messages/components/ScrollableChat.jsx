@@ -13,7 +13,7 @@ const ScrollableChat = ({ messages }) => {
     const { user } = ChatState();
 
     return (
-        <div className="overflow-y-scroll h-[80vh]">
+        <>
             {messages &&
                 messages.map((m, i) => (
                     <div style={{ display: "flex" }} key={m._id}>
@@ -38,7 +38,7 @@ const ScrollableChat = ({ messages }) => {
                         </span>
                     </div>
                 ))}
-        </div>
+        </>
     );
 };
 

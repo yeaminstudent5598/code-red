@@ -29,7 +29,7 @@ const Login = () => {
             });
             console.log(data);
 
-            localStorage.setItem("userInfo", JSON.stringify(data));
+            // localStorage.setItem("userInfo", JSON.stringify(data));
             setLoading(false);
             alert("Login Successful");
             router.push("/messages/chats");
