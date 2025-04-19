@@ -42,7 +42,7 @@ export default function Navbar() {
     </>
 
     const handelMassageRoute = () => {
-        router.push('/messages');
+        router.push('/messages/chats');
     }
 
     return (

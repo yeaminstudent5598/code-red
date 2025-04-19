@@ -18,7 +18,7 @@ const ChatProvider = ({ children }) => {
     console.log("userInfo>>>", userInfo);
     setUser(userInfo);
 
-    if (!userInfo) router.push("/messages/chats");
+    // if (!userInfo) router.push("/messages/chats");
   }, [router]);
 
   const value = {
