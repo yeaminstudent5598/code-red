@@ -5,17 +5,46 @@ import { Bell, MessagesSquare } from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import profilePic from '@/public/assets/profile-pic.png'
 import DrawerContentPage from '@/app/components/HomeCenter/components/DrawerContentPage'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 export default function Navbar() {
-    const { data: session, status } = useSession()
-    // console.log(session)
+    const { data: session, status } = useSession();
+    const router = useRouter();
+ 
+
+    // Set User to localStorage form DB;
+    const email = session?.user.email || null;
+
+    const setUserInLocalStorage = async () => {
+        if (email) {
+            try {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_CHAT_EXPRESS_SERVER}/api/user/getuser/${email}`)
+                const userData = response.data;
+                console.log("User Data:", userData);
+                localStorage.setItem('userInfo', JSON.stringify(userData))
+            } catch (error) {
+                console.error("Error fetching user data:", error)
+            }
+        }
+    }
+    
+    useEffect(() => {
+        setUserInLocalStorage()
+    }, [email])
+
     const navLinks = <>
         <li className="lg:hidden"><Link href={'/'}>Home</Link></li>
         <li><Link href={'/qus-ans'}>Questions</Link></li>
     </>
+
+    const handelMassageRoute = () => {
+        router.push('/messages');
+    }
+
     return (
         <div className="navbar lg:px-5 bg-black text-white shadow-sm sticky top-0 z-50">
             <div className="navbar-start">
@@ -46,7 +75,7 @@ export default function Navbar() {
                     <Drawer>
                         <div className="flex justify-center items-center gap-1.5">
 
-                            <div className="message btn btn-sm rounded-full bg-black border-none text-white hidden md:flex">
+                            <div className="message btn btn-sm rounded-full bg-black border-none text-white hidden md:flex" onClick={handelMassageRoute}>
                                 <MessagesSquare />
                             </div>
                             <div className="notification btn btn-sm rounded-full bg-black border-none text-white hidden lg:flex">
@@ -70,7 +99,9 @@ export default function Navbar() {
                                         <Link href="/profile">Profile</Link>
                                     </li>
                                     <li><a>Settings</a></li>
-                                    <li><a>Message</a></li>
+                                    <li>
+                                        <Link href="/messages">Message</Link>
+                                    </li>
                                     <li><a>Notification</a></li>
 
                                     <li>
