@@ -1,3 +1,5 @@
+"use client";
+
 import { ChatState } from "../../Context/ChatProvider";
 // import SingleChat from "../SingleChat";
 import SingleChat from "@/messages/components/SingleChat";

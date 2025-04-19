@@ -15,9 +15,10 @@ const ChatProvider = ({ children }) => {
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    console.log("userInfo>>>", userInfo);
     setUser(userInfo);
 
-    if (!userInfo) router.push("/");
+    if (!userInfo) router.push("/messages/chats");
   }, [router]);
 
   const value = {
