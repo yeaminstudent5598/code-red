@@ -201,7 +201,7 @@ export default function ProfilePage() {
           <div className="flex items-center gap-3 mb-8">
             <div className="w-10 h-10 rounded-full overflow-hidden">
               <img
-                src={session.user?.image || "/default-avatar.png"}
+                src={session.user?.image || "/assets/profile-pic.png"}
                 alt={session.user?.name}
                 className="w-full h-full object-cover"
               />
@@ -328,7 +328,7 @@ export default function ProfilePage() {
               <div className="relative">
                 <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white dark:border-gray-800">
                   <Image
-                    src={session.user?.image || "/default-avatar.png"}
+                    src={session.user?.image || "/assets/profile-pic.png"}
                     alt={session.user?.name}
                     width={128}
                     height={128}
@@ -342,8 +342,8 @@ export default function ProfilePage() {
                 )}
               </div>
               <div className="ml-6">
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{session.user?.name}</h1>
-                <p className="text-gray-600 dark:text-gray-400">{session.user?.email}</p>
+                <h1 className="text-2xl font-bold text-blue-900 ">{session.user?.name}</h1>
+                <p className="text-blue-600 ">{session.user?.email}</p>
               </div>
             </div>
 
@@ -357,7 +357,7 @@ export default function ProfilePage() {
                     setIsEditing(true);
                   }
                 }}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                className="bg-blue-600 text-blue px-4 py-2 rounded-lg hover:bg-blue-700"
               >
                 {isEditing ? 'Save Profile' : 'Edit Profile'}
               </button>
