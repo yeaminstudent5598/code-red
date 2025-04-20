@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import LayoutWrapper from "@/Providers/LayoutWrapper";
 import FloatingButton from "./code-editor/components/FloatingButton";
 import ChatProvider from "@/messages/Context/ChatProvider";
+import QueryProvider from "@/Providers/QueryProvider";
 // import ChatProvider from "@/Demo/antor/messages/Context/ChatProvider";
 
 const poppins = Poppins({
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} antialiased`} >
         <SessionWrapper>
+        <QueryProvider>
           <ChatProvider>
             <Toaster />
             {/* <Navbar /> */}
@@ -31,6 +33,7 @@ export default function RootLayout({ children }) {
             </LayoutWrapper>
             <FloatingButton />
           </ChatProvider>
+        </QueryProvider>
         </SessionWrapper>
       </body>
     </html>
