@@ -1,29 +1,46 @@
 # Code Red Message
 
-A modern web application built with Next.js that provides a platform for code sharing, messaging, and collaborative programming.
+A modern developer forum and collaboration platform built with Next.js that enables developers to share knowledge, ask questions, and collaborate in real-time.
+
+🌐 **Live Demo**: [https://dev-message.onrender.com](https://dev-message.onrender.com)
 
 ## Features
 
 - 🔐 **Authentication System**
-  - User registration and login
+  - Secure user registration and login
   - Password reset functionality
-  - Profile management
+  - Profile management with customizable avatars
+  - Social authentication options
 
-- 💬 **Messaging System**
-  - Real-time messaging using Socket.IO
-  - Rich text editor with Tiptap
-  - Code sharing capabilities
+- 💬 **Developer Forum**
+  - Create and share technical blog posts
+  - Ask and answer programming questions
+  - Upvote/downvote posts and answers
+  - Comment on posts and discussions
+  - Rich text formatting with code snippets
+  - Image upload support
 
-- 👨‍💻 **Code Editor**
-  - Monaco Editor integration
-  - Syntax highlighting
-  - Code formatting
+- 👥 **Real-time Communication**
+  - One-on-one messaging
+  - Group chat functionality
+  - Real-time notifications
+  - Online/offline status indicators
+  - Message history and search
+
+- 👨‍💻 **Code Collaboration**
+  - Integrated Monaco code editor
+  - Syntax highlighting for multiple languages
+  - Code formatting and linting
+  - Share code snippets in messages
+  - Collaborative code editing
 
 - 🎨 **Modern UI**
+  - Clean and intuitive interface
   - Built with Tailwind CSS
-  - Responsive design
-  - Beautiful animations
+  - Fully responsive design
+  - Beautiful animations and transitions
   - Dark/Light mode support
+  - Mobile-friendly layout
 
 ## Tech Stack
 
@@ -98,9 +115,11 @@ The application will be available at `http://localhost:3000`
 code-red-message/
 ├── app/                    # Next.js app directory
 │   ├── api/               # API routes
-│   ├── (message)/         # Message routes
+│   ├── (message)/         # Message and chat routes
 │   ├── (LogInAndRegister)/# Authentication routes
 │   ├── code-editor/       # Code editor feature
+│   ├── qus-ans/          # Question and answer section
+│   ├── profile/          # User profile management
 │   └── ...
 ├── components/            # Reusable components
 ├── lib/                   # Utility functions and configurations
