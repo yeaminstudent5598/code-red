@@ -1,4 +1,6 @@
-import React from 'react'
+"use client";
+
+import React, { useState, useEffect } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 import { Bookmark, Flag, MoreVertical } from 'lucide-react'
@@ -6,8 +8,60 @@ import LikeSection from './LikeSection/LikeSection'
 import EditSection from './EditSection/EditSection'
 import DeleteSection from './DeleteSection/DeleteSection'
 import CommentSection from './CommentSection/CommentSection'
+import { useSession } from 'next-auth/react'
 
 export default function BlogBoxFooter({ card }) {
+  const { data: session } = useSession();
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  useEffect(() => {
+    // Check if the blog is bookmarked by the current user
+    const checkBookmarkStatus = async () => {
+      if (session?.user?.email) {
+        try {
+          const response = await fetch('/api/bookmarks');
+          const bookmarks = await response.json();
+          const isBookmarked = bookmarks.some(
+            (bookmark) => bookmark.blogId === card._id && bookmark.type === 'blog'
+          );
+          setIsBookmarked(isBookmarked);
+        } catch (error) {
+          console.error('Error checking bookmark status:', error);
+        }
+      }
+    };
+
+    checkBookmarkStatus();
+  }, [session, card._id]);
+
+  const handleBookmark = async () => {
+    if (!session) {
+      // Redirect to login or show a message
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/bookmarks', {
+        method: isBookmarked ? 'DELETE' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          blogId: card._id,
+          type: 'blog'
+        }),
+      });
+
+      if (response.ok) {
+        setIsBookmarked(!isBookmarked);
+        // Dispatch event to notify other components
+        window.dispatchEvent(new Event('bookmark-updated'));
+      }
+    } catch (error) {
+      console.error('Error toggling bookmark:', error);
+    }
+  };
+
   return (
     <>
       <div className="flex justify-center items-center space-x-4">
@@ -31,9 +85,14 @@ export default function BlogBoxFooter({ card }) {
             <EditSection id={card._id} card={card} />
             {/* Delete button */}
             <DeleteSection id={card._id} />
-            <DropdownMenuItem className="flex items-center space-x-2 hover:bg-gray-100 p-2 cursor-pointer">
+            <DropdownMenuItem 
+              onClick={handleBookmark}
+              className={`flex items-center space-x-2 hover:bg-gray-100 p-2 cursor-pointer ${
+                isBookmarked ? 'text-blue-600' : ''
+              }`}
+            >
               <Bookmark className="w-4 h-4" />
-              <span>Bookmark</span>
+              <span>{isBookmarked ? 'Unbookmark' : 'Bookmark'}</span>
             </DropdownMenuItem>
             <DropdownMenuItem className="flex items-center space-x-2 hover:bg-gray-100 p-2 cursor-pointer text-red-500">
               <Flag className="w-4 h-4" />

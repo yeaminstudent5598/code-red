@@ -1,8 +1,10 @@
+"use client";
 
-
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import {
     MoreVertical, Bookmark, Flag,
-    // Edit
+    MessageSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -12,10 +14,57 @@ import DeleteSection from "./components/DeleteSection";
 import CommentSection from "./components/CommentSection/CommentSection";
 import EditSection from "./components/EditSection";
 
-
-
-
 export default function QuestionBoxFooter({ card }) {
+    const { data: session } = useSession();
+    const [isBookmarked, setIsBookmarked] = useState(false);
+
+    useEffect(() => {
+        // Check if the question is bookmarked by the current user
+        const checkBookmarkStatus = async () => {
+            if (session?.user?.email) {
+                try {
+                    const response = await fetch('/api/bookmarks');
+                    const bookmarks = await response.json();
+                    const isBookmarked = bookmarks.some(
+                        (bookmark) => bookmark.questionId === card._id && bookmark.type === 'question'
+                    );
+                    setIsBookmarked(isBookmarked);
+                } catch (error) {
+                    console.error('Error checking bookmark status:', error);
+                }
+            }
+        };
+
+        checkBookmarkStatus();
+    }, [session, card._id]);
+
+    const handleBookmark = async () => {
+        if (!session) {
+            // Redirect to login or show a message
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/bookmarks', {
+                method: isBookmarked ? 'DELETE' : 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    questionId: card._id,
+                    type: 'question'
+                }),
+            });
+
+            if (response.ok) {
+                setIsBookmarked(!isBookmarked);
+                // Dispatch event to notify other components
+                window.dispatchEvent(new Event('bookmark-updated'));
+            }
+        } catch (error) {
+            console.error('Error toggling bookmark:', error);
+        }
+    };
 
     return (
         <>
@@ -43,9 +92,14 @@ export default function QuestionBoxFooter({ card }) {
                         <EditSection id={card._id} card={card} />
                         {/* Delete btn */}
                         <DeleteSection id={card._id} />
-                        <DropdownMenuItem className="flex items-center space-x-2 hover:bg-gray-100 p-2 cursor-pointer">
+                        <DropdownMenuItem 
+                            onClick={handleBookmark}
+                            className={`flex items-center space-x-2 hover:bg-gray-100 p-2 cursor-pointer ${
+                                isBookmarked ? 'text-blue-600' : ''
+                            }`}
+                        >
                             <Bookmark className="w-4 h-4" />
-                            <span>Bookmark</span>
+                            <span>{isBookmarked ? 'Unbookmark' : 'Bookmark'}</span>
                         </DropdownMenuItem>
                         <DropdownMenuItem className="flex items-center space-x-2 hover:bg-gray-100 p-2 cursor-pointer text-red-500">
                             <Flag className="w-4 h-4" />
