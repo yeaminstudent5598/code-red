@@ -6,6 +6,7 @@ import axios from 'axios';
 const fetchPostedData = async () => {
     try {
         const { data: postedData } = await axios.get(`/api/blog`);
+        // console.log(postedData, "posted data in HomeCenter");
         return postedData
     } catch (error) {
         console.error("Error fetching posts:", error);
