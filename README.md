@@ -2,7 +2,7 @@
 
 A modern developer forum and collaboration platform built with Next.js that enables developers to share knowledge, ask questions, and collaborate in real-time.
 
-🌐 **Live Demo**: [https://dev-message.onrender.com](https://dev-message.onrender.com)
+🌐 **Live Demo**: [https://code-red-nxt0.onrender.com](https://code-red-nxt0.onrender.com)
 
 ## Features
 
