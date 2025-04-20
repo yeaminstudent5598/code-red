@@ -23,7 +23,7 @@ function ShowRequestInfo({ data, refetch }) {
   };
 
   return (
-    <div className="bg-white mt-4 px-4 py-2 shadow-sm rounded-md">
+    <div className="bg-black/45 mt-4 px-4 py-2 shadow-sm rounded-md">
       {request?.Request_members?.map((req, index) => (
         <div
           className="flex py-3 border-b border-gray-300 items-center justify-between"

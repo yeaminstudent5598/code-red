@@ -27,7 +27,7 @@ export default function PostInputCard() {
   };
 
   return (
-    <div className="w-full mx-auto bg-white rounded-lg shadow p-4 flex flex-col gap-4">
+    <div className="w-full mx-auto bg-black/25 rounded-lg shadow p-4 flex flex-col gap-4">
       <div className="flex items-center gap-3">
         <Image
           src={

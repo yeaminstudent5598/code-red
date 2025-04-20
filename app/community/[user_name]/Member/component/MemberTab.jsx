@@ -38,7 +38,7 @@ function MemberTab() {
             className={`py-2 text-sm font-semibold ${
               activeTab === tab
                 ? "text-blue-600 border-b-4 border-blue-600"
-                : "text-gray-500"
+                : "text-gray-200"
             }`}
           >
               <p className="flex items-center">{tab}{tab==="Request"?<p className="pl-1 text-red-400">({data[0]?.Request_members?.length})</p>:""}</p>

@@ -3,7 +3,7 @@ import Image from "next/image"
 function ShowMember({members, refetch}) {
   return (
     <div>
-        <div className="bg-white mt-4 px-4 py-2 shadow-sm rounded-md">
+        <div className="bg-black/45 mt-4 px-4 py-2 shadow-sm rounded-md">
                 {members?.All_Member?.map((member, index) => (
                   <div className="flex py-3 border-b border-gray-300 items-center justify-between" key={index}>
                     <div className="flex items-center">

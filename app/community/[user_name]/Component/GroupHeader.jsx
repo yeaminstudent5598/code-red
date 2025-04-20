@@ -17,7 +17,7 @@ export default function GroupHeader() {
   // if(isLoading)return <p>Loading............</p>
   // if(!session?.data?.user?.email)return <p>loading......</p>
   return (
-    <div className="bg-white rounded-lg mb-6 p-6 w-full mx-auto">
+    <div className="bg-black/25 rounded-lg mb-6 p-6 w-full mx-auto">
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <Image src={groupInfo?.group_picture ? groupInfo?.group_picture: "https://placehold.co/400x150"} alt="Apple Education" className='h-[50px] w-[50px] object-cover rounded-lg' width={50} height={50} />

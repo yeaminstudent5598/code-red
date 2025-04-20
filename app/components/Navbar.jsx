@@ -87,7 +87,7 @@ export default function Navbar() {
         </div>
         <Link href={"/"} className=" hidden lg:flex">
           {/* <SparklesText text="DevQuestions" className="text-2xl" /> */}
-          <h1 className="text-2xl"> DevQuestions</h1>
+          <h1 className="text-2xl"> CodeRed</h1>
         </Link>
         <ul className="menu menu-horizontal px-1 hidden lg:flex">{navLinks}</ul>
       </div>

@@ -11,7 +11,7 @@ function ShowInvitedMember({data, refetch}) {
     }
   return (
     <div>
-        <div className="bg-white mt-4 px-4 py-2 shadow-sm rounded-md">
+        <div className="bg-black/45 mt-4 px-4 py-2 shadow-sm rounded-md">
               {invited?.Invited_members?.map((invite, index) => (
                 <div
                   className="flex py-3 border-b border-gray-300 items-center justify-between"
@@ -30,8 +30,8 @@ function ShowInvitedMember({data, refetch}) {
                       className="h-[40px] w-[40px] rounded-full"
                     ></Image>
                     <div className="flex ml-8 flex-col">
-                      <p className="font-semibold text-gray-700">{invite?.name}</p>
-                      <p className="text-sm text-gray-500">{invite?.email}</p>
+                      <p className="font-semibold text-gray-200">{invite?.name}</p>
+                      <p className="text-sm text-gray-200">{invite?.email}</p>
                     </div>
                   </div>
                   <div>

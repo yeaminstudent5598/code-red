@@ -1,23 +1,21 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-// import Link from 'next/link'
 
-export default function TopGroups({ communityData }) {
+export default function ShowUserInfo({ userData }) {
   return (
     <div>
       <div className="group m-1 lg:m-4 ">
         <ul className="space-y-4">
-          {communityData.slice(0, 7).map((user, index) => (
+          {userData.slice(0, 5).map((user, index) => (
             <li key={index} className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="relative rounded-full overflow-hidden">
                   <Image
                     src={
-                      user?.group_picture
-                        ? user?.group_picture
+                      user?.user_photo
+                        ? user?.user_photo
                         : "https://placehold.co/10x10"
                     }
-                    alt={user?.group_name || "Group"}
+                    alt={user?.user_name || "User"}
                     width={38}
                     height={38}
                     className="rounded-full w-10 h-10 object-cover border-2 overflow-hidden border-blue-500"
@@ -25,7 +23,7 @@ export default function TopGroups({ communityData }) {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-200 text-sm">
-                    {user.group_name}
+                    {user.name}
                   </p>
                   <p className="text-xs text-gray-500">web developer</p>
                 </div>

@@ -3,7 +3,7 @@ import RequestInfo from './component/RequestInfo'
 
 function page() {
   return (
-    <div>
+    <div className='min-h-screen'>
       <RequestInfo></RequestInfo>
     </div>
   )

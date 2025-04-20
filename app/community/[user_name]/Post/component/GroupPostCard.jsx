@@ -4,7 +4,7 @@ import { FaThumbsUp, FaCommentAlt, FaShare } from "react-icons/fa";
 
 export default function GroupPostCard() {
   return (
-    <div className="mt-4 bg-white rounded-lg shadow p-4 mb-6">
+    <div className="mt-4 bg-black/25 rounded-lg shadow p-4 mb-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Image
@@ -15,18 +15,18 @@ export default function GroupPostCard() {
             className="rounded-full"
           />
           <div>
-            <p className="font-semibold text-gray-800">Lori Ferguson</p>
-            <p className="text-sm text-gray-500">
+            <p className="font-semibold text-white">Lori Ferguson</p>
+            <p className="text-sm text-gray-300">
               Web Developer at StackBros • <span>2hr</span>
             </p>
           </div>
         </div>
-        <button className="text-gray-500 hover:bg-gray-100 p-2 rounded-full">
+        <button className="text-white hover:bg-gray-100 p-2 rounded-full">
           ...
         </button>
       </div>
 
-      <div className="mt-4 text-gray-700">
+      <div className="mt-4 text-white/85">
         I'm thrilled to share that I've completed a graduate certificate course
         in project management with the president's honor roll.
       </div>

@@ -7,7 +7,7 @@ function ShowAllMemberInfo({ data, isLoading, refetch }) {
   const members = data[0];
   return (
     <div className="my-5">
-      <div className="bg-white px-4 py-2 shadow-sm rounded-md">
+      <div className="bg-black/45 px-4 py-2 shadow-sm rounded-md">
         {members?.Owner?.map((owner, index) => (
           <div className="flex items-center justify-between" key={index}>
             <div className="flex items-center">

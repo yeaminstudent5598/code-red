@@ -35,7 +35,7 @@ function GroupTab() {
             className={`py-2 text-sm font-semibold ${
               activeTab === tab
                 ? "text-blue-600 border-b-4 border-blue-600"
-                : "text-gray-500"
+                : "text-gray-200"
             }`}
           >
             {tab}
