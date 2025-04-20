@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const fetchPostedData = async () => {
     try {
-        const { data: postedData } = await axios.get(`/api/blog`);
+        const { data: postedData } = await axios.get(`${process.env.NEXTAUTH_URL}/api/blog`);
         // console.log(postedData, "posted data in HomeCenter");
         return postedData
     } catch (error) {

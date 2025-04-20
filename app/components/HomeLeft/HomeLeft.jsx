@@ -8,7 +8,7 @@ const fetchCommunityData = async () => {
     // console.log(process.env.NEXTAUTH_URL, "NEXTAUTH_URL");
     try {
 
-        const { data: postedData } = await axios.get(`/api/community`);
+        const { data: postedData } = await axios.get(`${process.env.NEXTAUTH_URL}/api/community`);
         console.log(postedData, "community data");
         return postedData
         console.log(postedData, "community data");
