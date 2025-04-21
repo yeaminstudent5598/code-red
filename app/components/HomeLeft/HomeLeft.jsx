@@ -7,9 +7,7 @@ import axios from 'axios';
 const fetchCommunityData = async () => {
     try {
         const { data: postedData } = await axios.get(`${process.env.NEXTAUTH_URL}/api/community`);
-        console.log(postedData, "community data");
         return postedData
-        console.log(postedData, "community data");
     } catch (error) {
         console.error("Error fetching posts:", error);
         return []
